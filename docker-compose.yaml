@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile # Assuming this is where your Nginx Dockerfile is located
+    ports:
+      - "80:80"
+
+  delivery:
+    build:
+      context: ./delivery
+
+  order:
+    build:
+      context: ./order
+
+  restaurant:
+    build:
+      context: ./restaurant
+
+  user:
+    build:
+      context: ./user
