@@ -5,21 +5,26 @@ services:
     build:
       context: .
       dockerfile: Dockerfile # Assuming this is where your Nginx Dockerfile is located
+    image: baotongxuan/food-delivery:nginx
     ports:
       - "80:80"
 
   delivery:
     build:
       context: ./delivery
+    image: baotongxuan/food-delivery:delivery
 
   order:
     build:
       context: ./order
+    image: baotongxuan/food-delivery:order
 
   restaurant:
     build:
       context: ./restaurant
+    image: baotongxuan/food-delivery:restaurant
 
   user:
     build:
       context: ./user
+    image: baotongxuan/food-delivery:user
