@@ -23,10 +23,10 @@ jobs:
         chmod 600 private_key.pem
 
         # Sync codebase to EC2
-        rsync -avz -e "ssh -o StrictHostKeyChecking=no -i private_key.pem" --exclude '.git/' --exclude 'private_key.pem' ./ $USER@$HOST:/home/ubuntu/food-delivery/
+        rsync -avz -e "ssh -o StrictHostKeyChecking=no -i private_key.pem" --exclude '.git/' --exclude 'private_key.pem' ./ "$USER"@"$HOST":/home/ubuntu/food-delivery/
 
         # Execute docker-compose on EC2
-        ssh -o StrictHostKeyChecking=no -i private_key.pem $USER@$HOST "cd /home/ubuntu/food-delivery/ && docker-compose up -d"
+        ssh -o StrictHostKeyChecking=no -i private_key.pem "$USER"@"$HOST" "cd /home/ubuntu/food-delivery/ && docker-compose up -d"
 
         # Cleanup
         rm -f private_key.pem
