@@ -26,8 +26,8 @@ jobs:
           docker compose push
 
       - name: Deploy to my EC2 instance
-        uses: easingthemes/ssh-deploy@main
-        with:
+        uses: easingthemes/ssh-deploy@v4
+        env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           SOURCE: "./"
           REMOTE_HOST: ${{ secrets.EC2_HOST }}
