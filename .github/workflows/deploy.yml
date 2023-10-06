@@ -21,4 +21,4 @@ jobs:
           SOURCE: "./"
           REMOTE_HOST: ${{ secrets.EC2_HOST }}
           REMOTE_USER: ubuntu
-          TARGET: "/home/ubuntu/SampleExpressApp"
+          TARGET: "/home/ubuntu/food-delivery"
