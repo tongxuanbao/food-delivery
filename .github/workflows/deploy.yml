@@ -33,7 +33,10 @@ jobs:
           REMOTE_HOST: ${{ secrets.EC2_HOST }}
           REMOTE_USER: ubuntu
           TARGET: "/home/ubuntu/food-delivery"
-          SCRIPT_BEFORE: ls
+          SCRIPT_BEFORE: |
+            whoami
+            ls -al
           SCRIPT_AFTER: |
-            docker compose pull
-            docker compose up -d
+            whoami
+            ls -al
+            echo $RSYNC_STDOUT
