@@ -1,0 +1,32 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Deploy to EC2
+      env:
+        PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+        HOST: ${{ secrets.EC2_HOST }}
+        USER: ${{ secrets.EC2_USER }}
+      run: |
+        echo "$PRIVATE_KEY" > private_key.pem
+        chmod 600 private_key.pem
+
+        # Sync codebase to EC2
+        rsync -avz -e "ssh -o StrictHostKeyChecking=no -i private_key.pem" --exclude '.git/' --exclude 'private_key.pem' ./ $USER@$HOST:/home/ubuntu/food-delivery/
+
+        # Execute docker-compose on EC2
+        ssh -o StrictHostKeyChecking=no -i private_key.pem $USER@$HOST "cd /home/ubuntu/food-delivery/ && docker-compose up -d"
+
+        # Cleanup
+        rm -f private_key.pem
