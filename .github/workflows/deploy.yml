@@ -19,7 +19,7 @@ jobs:
         HOST: ${{ secrets.EC2_HOST }}
         USER: ${{ secrets.EC2_USER }}
       run: |
-        echo $PRIVATE_KEY | base64 -d > private_key.pem
+        echo "$PRIVATE_KEY" | base64 -d > private_key.pem
         chmod 600 private_key.pem
 
         # Sync codebase to EC2
