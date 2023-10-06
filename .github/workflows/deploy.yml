@@ -27,11 +27,12 @@ jobs:
 
       - name: Deploy to my EC2 instance
         uses: easingthemes/ssh-deploy@main
-        env:
+        with:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           SOURCE: "./"
           REMOTE_HOST: ${{ secrets.EC2_HOST }}
           REMOTE_USER: ubuntu
           TARGET: "/home/ubuntu/food-delivery"
           SCRIPT_AFTER: |
+            docker compose pull
             docker compose up -d
