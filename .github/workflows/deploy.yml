@@ -7,26 +7,18 @@ on:
 
 jobs:
   deploy:
+    name: Push to EC2 Instance
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout the code
+        uses: actions/checkout@v1
 
-    - name: Deploy to EC2
-      env:
-        PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
-        HOST: ${{ secrets.EC2_HOST }}
-        USER: ${{ secrets.EC2_USER }}
-      run: |
-        echo "$PRIVATE_KEY" | base64 -d > private_key.pem
-        chmod 600 private_key.pem
-
-        # Sync codebase to EC2
-        rsync -avz -e "ssh -o StrictHostKeyChecking=no -i private_key.pem" --exclude '.git/' --exclude 'private_key.pem' ./ "$USER"@"$HOST":/home/ubuntu/food-delivery/
-
-        # Execute docker-compose on EC2
-        ssh -o StrictHostKeyChecking=no -i private_key.pem "$USER"@"$HOST" "cd /home/ubuntu/food-delivery/ && docker compose up -d"
-
-        # Cleanup
-        rm -f private_key.pem
+      - name: Deploy to my EC2 instance
+        uses: easingthemes/ssh-deploy@v2.1.5
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+          SOURCE: "./"
+          REMOTE_HOST: ${{ secrets.EC2_HOST }}
+          REMOTE_USER: ubuntu
+          TARGET: "/home/ubuntu/SampleExpressApp"
