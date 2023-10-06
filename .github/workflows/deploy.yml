@@ -36,4 +36,4 @@ jobs:
           SCRIPT_BEFORE: ls
           SCRIPT_AFTER: |
             docker compose -f "./food-delivery/docker-compose.yaml" pull
-            docker compose -f "./food-delivery/docker-compose.yaml" -d up
+            docker compose -f "./food-delivery/docker-compose.yaml" up -d
