@@ -14,20 +14,16 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v4
 
-      - name: Build docker images
-        run: docker compose build
-
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Build the Docker image
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          
+      - name: Build docker images
+        run: |
+          docker compose build
+          docker compose push
 
       - name: Deploy to my EC2 instance
         uses: easingthemes/ssh-deploy@main
@@ -38,5 +34,4 @@ jobs:
           REMOTE_USER: ubuntu
           TARGET: "/home/ubuntu/food-delivery"
           SCRIPT_AFTER: |
-            docker compose build
-            docker compose up -d
+            docker compose up
