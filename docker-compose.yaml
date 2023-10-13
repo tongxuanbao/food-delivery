@@ -4,7 +4,7 @@ services:
   nginx:
     build:
       context: .
-      dockerfile: Dockerfile # Assuming this is where your Nginx Dockerfile is located
+      dockerfile: Dockerfile 
     image: baotongxuan/food-delivery:nginx
     ports:
       - "80:80"
