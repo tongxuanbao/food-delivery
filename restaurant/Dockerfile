@@ -1,4 +1,5 @@
-FROM golang:1.21
+# --- Build Stage ---
+FROM golang:1.21 AS builder
 
 WORKDIR /app
 
@@ -8,6 +9,11 @@ RUN go mod download
 COPY *.go ./
 
 RUN CGO_ENABLED=0 GOOS=linux go build -o /restaurant
+
+# --- Final Stage ---
+FROM alpine:latest
+
+COPY --from=builder /restaurant /restaurant
 
 EXPOSE 8080
 
