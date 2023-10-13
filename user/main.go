@@ -1,9 +1,13 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net/http"
+	"os"
+	"os/signal"
+	"time"
 )
 
 func main() {
@@ -12,10 +16,30 @@ func main() {
 	})
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello world, it's user service")
+		fmt.Fprintf(w, "Hello world, it's user service\n")
 	})
 
-	log.Println("Starting Server")
-	err := http.ListenAndServe(":8080", nil)
-	log.Fatal(err)
+	server := &http.Server{Addr: ":8080"}
+
+	go func() {
+		log.Println("Starting USER server on port 8080")
+
+		err := server.ListenAndServe()
+		if err != nil {
+			log.Printf("Error starting USER server: %s\n", err)
+			os.Exit(1)
+		}
+	}()
+
+	// trap sigterm or interrupt and gracefully shutdown the server
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt, os.Kill)
+
+	// Block until a signal is received.
+	sig := <-c
+	log.Printf("Got signal: %s, exiting.", sig)
+
+	// gracefully shutdown the server, waiting max 30 seconds for current operations to complete
+	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
+	server.Shutdown(ctx)
 }

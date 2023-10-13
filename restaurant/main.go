@@ -16,7 +16,7 @@ func main() {
 	})
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello world, it's restaurant service")
+		fmt.Fprintf(w, "Hello world, it's restaurant service\n")
 	})
 
 	server := &http.Server{Addr: ":8080"}
