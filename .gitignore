@@ -1,0 +1,7 @@
+.env
+
+# air tmp folder
+**/tmp/
+
+# local override docker-compose file
+docker-compose.override.yml
