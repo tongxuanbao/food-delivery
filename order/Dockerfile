@@ -10,6 +10,15 @@ COPY *.go ./
 
 RUN CGO_ENABLED=0 GOOS=linux go build -o /order
 
+# --- Development Stage ---
+FROM cosmtrek/air AS development
+
+WORKDIR /app
+
+EXPOSE 8080
+
+CMD ["air"]
+
 # --- Final Stage ---
 FROM alpine:latest
 
