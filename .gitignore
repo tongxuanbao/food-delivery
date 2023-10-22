@@ -4,4 +4,4 @@
 **/tmp/
 
 # local override docker-compose file
-docker-compose.override.yml
+docker-compose.override.yaml
