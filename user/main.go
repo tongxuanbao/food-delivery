@@ -18,7 +18,7 @@ const database_url string = "../database.db"
 const create_user_table string = `
 	CREATE TABLE IF NOT EXISTS users (
 		id INTEGER NOT NULL PRIMARY KEY,
-		name TEXT,
+		name TEXT
 	);`
 
 func main() {
@@ -36,6 +36,11 @@ func main() {
 
 	http.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "pong")
+	})
+
+	http.HandleFunc("/user/", func(w http.ResponseWriter, r *http.Request) {
+
+		fmt.Fprintf(w, "You are getting the use ID: %s", r.URL.RequestURI())
 	})
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
