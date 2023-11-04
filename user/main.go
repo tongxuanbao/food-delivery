@@ -2,15 +2,37 @@ package main
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"time"
+
+	_ "github.com/mattn/go-sqlite3"
 )
 
+const database_url string = "../database.db"
+const create_user_table string = `
+	CREATE TABLE IF NOT EXISTS users (
+		id INTEGER NOT NULL PRIMARY KEY,
+		name TEXT,
+	);`
+
 func main() {
+	db, err := sql.Open("sqlite3", database_url)
+
+	if err != nil {
+		log.Println("Error opening database: ", err)
+		os.Exit(1)
+	}
+
+	if _, err := db.Exec(create_user_table); err != nil {
+		log.Println("Error creating users table: ", err)
+		os.Exit(1)
+	}
+
 	http.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "pong")
 	})
