@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"syscall"
 	"time"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -55,7 +56,7 @@ func main() {
 
 	// trap sigterm or interrupt and gracefully shutdown the server
 	c := make(chan os.Signal, 1)
-	signal.Notify(c, os.Interrupt, os.Kill)
+	signal.Notify(c, syscall.SIGINT, syscall.SIGTERM)
 
 	// Block until a signal is received.
 	sig := <-c
