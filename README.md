@@ -1,4 +1,7 @@
 # Todo
 
-- [] Connect to database SQLite
-- [] User functionality: Order
+- [] Functionality: user put an order,
+
+# Done
+
+- [x] Connect to database SQLite
