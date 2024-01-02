@@ -1,6 +1,6 @@
 # Todo
 
-- [] Functionality: user put an order,
+- [ ] Functionality: order workflow for restaurant: accept order -> order ready -> pickup for delivery -> delivered.
 
 # Done
 
