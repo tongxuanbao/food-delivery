@@ -1,0 +1,5 @@
+- Order Accepted
+- Order Making with random timer
+- Order Ready
+- Order On the road
+- Order Delivered

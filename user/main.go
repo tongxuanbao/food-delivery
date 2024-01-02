@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -39,12 +40,18 @@ func main() {
 	})
 
 	http.HandleFunc("/user/", func(w http.ResponseWriter, r *http.Request) {
-
 		fmt.Fprintf(w, "You are getting the use ID: %s", r.URL.RequestURI())
 	})
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello world, it's user1 service\n")
+	http.HandleFunc("/new-order", func(w http.ResponseWriter, r *http.Request) {
+		requestUrl := "http://order:8080/new"
+		if resp, err := http.Get(requestUrl); err != nil {
+			fmt.Fprintln(w, "Some problem requesting", err)
+		} else if body, err := io.ReadAll(resp.Body); err != nil {
+			fmt.Fprintln(w, "Some problem requesting", err)
+		} else {
+			fmt.Fprint(w, string(body))
+		}
 	})
 
 	server := &http.Server{Addr: ":8080"}
