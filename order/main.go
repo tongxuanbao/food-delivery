@@ -15,8 +15,21 @@ func main() {
 		fmt.Fprintf(w, "pong")
 	})
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/new", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Hello world, it's order1 service\n")
+		go func() {
+			log.Println("Order placed")
+			time.Sleep(5 * time.Second)
+			log.Println("Order accepted")
+			time.Sleep(5 * time.Second)
+			log.Println("Order cooking")
+			time.Sleep(5 * time.Second)
+			log.Println("Order cooked and waiting for shipper")
+			time.Sleep(5 * time.Second)
+			log.Println("Order on the way")
+			time.Sleep(5 * time.Second)
+			log.Println("Order delivered")
+		}()
 	})
 
 	server := &http.Server{Addr: ":8080"}
@@ -40,6 +53,7 @@ func main() {
 	log.Printf("Got signal: %s, exiting.", sig)
 
 	// gracefully shutdown the server, waiting max 30 seconds for current operations to complete
-	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
 	server.Shutdown(ctx)
 }
