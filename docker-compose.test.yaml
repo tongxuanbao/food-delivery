@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile 
+    ports:
+      - "80:80"
+
+  delivery:
+    build: 
+      context: ./delivery
+      target: development
+    volumes:
+      - ./delivery:/app
+
+  order:
+    build: 
+      context: ./order
+      target: development
+    volumes:
+      - ./order:/app
+
+  restaurant:
+    build: 
+      context: ./restaurant
+      target: development
+    volumes:
+      - ./restaurant:/app
+
+  user:
+    build: 
+      context: ./user
+      target: development
+    volumes:
+      - ./user:/app

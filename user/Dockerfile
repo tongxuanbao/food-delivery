@@ -1,5 +1,7 @@
 # --- Build Stage ---
-FROM golang:1.21 AS builder
+FROM golang:alpine3.18 AS builder
+
+RUN apk add --no-cache gcc musl-dev
 
 WORKDIR /app
 
@@ -21,6 +23,8 @@ CMD ["air"]
 
 # --- Final Stage ---
 FROM alpine:latest
+
+RUN apk add --no-cache libc6-compat
 
 COPY --from=builder /user /user
 
