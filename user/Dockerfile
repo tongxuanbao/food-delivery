@@ -8,7 +8,7 @@ RUN go mod download
 
 COPY *.go ./
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o /user
+RUN CGO_ENABLED=1 GOOS=linux go build -o /user
 
 # --- Development Stage ---
 FROM cosmtrek/air AS development
