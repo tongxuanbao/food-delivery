@@ -36,7 +36,7 @@ func main() {
 	}
 
 	http.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "pong")
+		fmt.Fprintf(w, "Olivia\n")
 	})
 
 	http.HandleFunc("/user/", func(w http.ResponseWriter, r *http.Request) {
