@@ -10,7 +10,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - /etc/letsencrypt/live/delivery.baotong.dev:/etc/letsencrypt/live/delivery.baotong.dev
+      - /etc/letsencrypt/live/delivery.baotong.dev:/etc/letsencrypt/live/delivery.baotong.dev:ro
 
   delivery:
     build:
