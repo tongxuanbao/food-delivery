@@ -5,6 +5,17 @@ services:
     build:
       context: .
       dockerfile: Dockerfile 
+    depends_on:
+      delivery:
+        condition: service_healthy
+      restaurant:
+        condition: service_healthy
+      order:
+        condition: service_healthy
+      user:
+        condition: service_healthy
+      simulator:
+        condition: service_healthy
     ports:
       - "80:80"
 
@@ -15,7 +26,7 @@ services:
     volumes:
       - ./delivery:/app
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/delivery/ping"]
+      test: ["CMD", "curl", "-f", "http://delivery:8080/ping"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -27,7 +38,7 @@ services:
     volumes:
       - ./order:/app
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/order/ping"]
+      test: ["CMD", "curl", "-f", "http://order:8080/ping"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -39,7 +50,7 @@ services:
     volumes:
       - ./restaurant:/app
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/restaurant/ping"]
+      test: ["CMD", "curl", "-f", "http://restaurant:8080/ping"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -51,7 +62,7 @@ services:
     volumes:
       - ./user:/app
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/user/ping"]
+      test: ["CMD", "curl", "-f", "http://user:8080/ping"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -63,7 +74,7 @@ services:
     volumes:
       - ./simulator:/app
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/simulator/ping"]
+      test: ["CMD", "curl", "-f", "http://simulator:8080/ping"]
       interval: 30s
       timeout: 10s
       retries: 5
