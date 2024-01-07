@@ -5,4 +5,5 @@ use (
   ./order
   ./restaurant
   ./user
+  ./simulator
 )

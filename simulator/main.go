@@ -15,18 +15,23 @@ func main() {
 		fmt.Fprintf(w, "pong\n")
 	})
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello world, it's delivery service\n")
+	http.HandleFunc("/clicked", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "Clicked")
 	})
+
+	dir := http.Dir("./static")
+	fs := http.FileServer(dir)
+
+	http.Handle("/", fs)
 
 	server := &http.Server{Addr: ":8080"}
 
 	go func() {
-		log.Println("Starting DELIVERY server on port 8080")
+		log.Println("Starting SIMULATOR server on port 8080")
 
 		err := server.ListenAndServe()
 		if err != nil {
-			log.Printf("Error starting DELIVERY server: %s\n", err)
+			log.Printf("Error starting SIMULATOR server: %s\n", err)
 			os.Exit(1)
 		}
 	}()

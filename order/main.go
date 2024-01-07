@@ -12,7 +12,7 @@ import (
 
 func main() {
 	http.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "pong")
+		fmt.Fprintf(w, "pong\n")
 	})
 
 	http.HandleFunc("/new", func(w http.ResponseWriter, r *http.Request) {
