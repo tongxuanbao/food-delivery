@@ -8,6 +8,9 @@ services:
     image: baotongxuan/food-delivery:nginx
     ports:
       - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt/live/delivery.baoton.dev:/etc/letsencrypt/live/delivery.baoton.dev
 
   delivery:
     build:
