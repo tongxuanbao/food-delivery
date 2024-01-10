@@ -16,7 +16,7 @@ func main() {
 	})
 
 	http.HandleFunc("/clicked", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Clicked")
+		fmt.Fprintf(w, "<button>Clicked</button>")
 	})
 
 	dir := http.Dir("./static")
