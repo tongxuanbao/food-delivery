@@ -59,7 +59,7 @@ func main() {
 		nextPosition := getNextPosition(Position{x, y})
 
 		fmt.Fprintf(w, `
-			<div id="dot-demo" class="dot smooth" style="top:%[1n]dpx;left:%[2]dpx;"
+			<div id="dot-demo" class="dot smooth" style="top:%[1]dpx;left:%[2]dpx;"
             hx-get="/square?x=%[1]d&y=%[2]d" hx-swap="outerHTML" hx-trigger="every 2s"></div>
 		`, nextPosition.x, nextPosition.y)
 	})
