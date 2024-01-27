@@ -1,10 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <style>
+    .smooth {
+        transition: all 1s ease-in-out;
+    }
+    .square {
+        width: 200px;
+        height: 200px;
+        background-color: red;
+        position: relative;
+    }
+    .square::before, .square::after {
+        content: '';
+        position: absolute;
+        background-color: white;
+    }
+    .square::before {
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        transform: translateX(-50%);
+    }
+    .square::after {
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 3px;
+        transform: translateY(-50%);
+   }
+   .dot {
+       width: 20px;
+       height: 20px;
+       background-color: black;
+       border-radius: 50%;
+       position: absolute;
+       transform: translate(-50%, -50%);
+   }
+    </style>
+</head>
 <body>
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <button hx-post="/clicked" hx-swap="outerHTML">
         Click Me
     </button>
-    <h1>Hello World :D</h1>
+    <div id="color-demo" class="smooth" style="color:red">
+        <h1>Hello World :D</h1>
+    </div>
+    <div class="square">
+        <div id="dot-demo" class="dot smooth" style="left:50px;top:50px;" 
+            hx-get="/square?x=50&y=50" hx-swap="outerHTML" hx-trigger="every 2s"></div>
+    </div>
 </body>
 </html>
