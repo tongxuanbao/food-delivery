@@ -10,45 +10,58 @@ import (
 	"time"
 )
 
+type Position struct {
+	x, y int
+}
+
+func getPositionMap() map[Position]Position{
+	m := make(map[Position]Position)
+
+	m[Position{160, 427}] = Position{200, 370}
+	m[Position{200, 370}] = Position{155, 300}
+	m[Position{155, 300}] = Position{216, 207}
+	m[Position{216, 207}] = Position{270, 270}
+	m[Position{270, 270}] = Position{199, 365}
+	m[Position{199, 365}] = Position{160, 427}
+
+	return m
+}
+
+func getNextPosition(pos Position) Position {
+	m := getPositionMap()
+	if nextPosition, ok := m[pos]; ok {
+		log.Printf("x: %q", nextPosition)
+		return nextPosition
+	}
+
+	return Position{160, 427}
+}
+
 func main() {
 	http.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "pong\n")
 	})
 
-	http.HandleFunc("/clicked", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "<button>Clicked</button>")
-	})
-
-	http.HandleFunc("/colors", func(w http.ResponseWriter, r *http.Request) {
-		color := r.URL.Query().Get("color")
-		if color == "" || color == "green" {
-			color = "red"
-		} else if color == "red" {
-			color = "blue"
-		} else {
-			color = "green"
-		}
-		fmt.Fprintf(w, `<div id="color-demo" class="smooth" style="color:%[1]s" hx-get="/colors?color=%[1]s" hx-swap="outerHTML" hx-trigger="every 1s"> <h1>Hello World :D</h1> </div>`, color)
-	})
-
 	http.HandleFunc("/square", func(w http.ResponseWriter, r *http.Request) {
-		x := r.URL.Query().Get("x")
-		y := r.URL.Query().Get("y")
+		var x, y int
 
-		if x == "50" && y == "50" {
-			y = "150"
-		} else if x == "50" && y == "150" {
-			x = "150"
-		} else if x == "150" && y == "150" {
-			y = "50"
-		} else { 
-			x = "50"
+		if _, err := fmt.Sscanf(r.URL.Query().Get("x"), "%d", &x); err != nil {
+			http.Error(w, "Invalid parameter (x)", http.StatusBadRequest)
+			return
 		}
-			
+		if _, err := fmt.Sscanf(r.URL.Query().Get("y"), "%d", &y); err != nil {
+			http.Error(w, "Invalid paramete", http.StatusBadRequest)
+			return
+		}
+		
+		log.Printf("x: %d, y: %d", x, y)
+
+		nextPosition := getNextPosition(Position{x, y})
+
 		fmt.Fprintf(w, `
-			<div id="dot-demo" class="dot smooth" style="top:%[1]spx;left:%[2]spx;"
-            hx-get="/square?x=%[1]s&y=%[2]s" hx-swap="outerHTML" hx-trigger="every 2s"></div>
-		`, x, y)
+			<div id="dot-demo" class="dot smooth" style="top:%[1n]dpx;left:%[2]dpx;"
+            hx-get="/square?x=%[1]d&y=%[2]d" hx-swap="outerHTML" hx-trigger="every 2s"></div>
+		`, nextPosition.x, nextPosition.y)
 	})
 
 	dir := http.Dir("./static")
