@@ -2,7 +2,7 @@ import {readFile, writeFile} from "fs";
 
 const toString = (coord) => `${coord[0]}_${coord[1]}`;
 
-readFile('adjacentList.json', function(err, data) { 
+readFile('adjacentListFinal.json', function(err, data) { 
     const adjacentList = JSON.parse(data); 
     const visited = new Set();
     const m = new Map();
@@ -37,17 +37,24 @@ readFile('adjacentList.json', function(err, data) {
         }
     }
 
-    for (const example of visited) {
-        for (const pair of adjacentList) {
-            const a = toString(pair[0]);
-            const b = toString(pair[1]);
+    console.log(visited.size);
 
-            if (a === example || b === example) {
-                const idx = adjacentList.findIndex(p => p == pair);
-                adjacentList.splice(idx, 1);
-            }
+    const features = adjacentList.map(pair => ({
+        type: "Feature",
+        properties: {},
+        geometry: {
+            coordinates: [
+                pair[0],
+                pair[1],
+            ],
+            type: "LineString",
         }
+    }))
+
+    const geojson = {
+        type: "FeatureCollection",
+        features: features,
     }
 
-    writeFile('adjacentList2.json', JSON.stringify(adjacentList), () => {})
+    writeFile('test.geojson', JSON.stringify(geojson), () => {})
 }); 
