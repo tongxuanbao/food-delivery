@@ -1,3 +1,3 @@
 module github.com/tongxuanbao/food-delivery/simulator
 
-go 1.21.0
+go 1.22.2

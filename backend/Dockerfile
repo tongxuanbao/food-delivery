@@ -8,7 +8,7 @@ RUN go mod download
 
 COPY *.go ./
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o /restaurant
+RUN CGO_ENABLED=0 GOOS=linux go build -o /backend
 
 # --- Development Stage ---
 FROM cosmtrek/air AS development
@@ -22,8 +22,8 @@ CMD ["air"]
 # --- Final Stage ---
 FROM alpine:latest
 
-COPY --from=builder /restaurant /restaurant
+COPY --from=builder /backend /backend
 
 EXPOSE 8080
 
-CMD ["/restaurant"]
+CMD ["/backend"]

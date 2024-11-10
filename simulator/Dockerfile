@@ -6,7 +6,7 @@ WORKDIR /app
 COPY go.mod ./
 RUN go mod download
 
-COPY . ./
+COPY *.go ./
 
 RUN CGO_ENABLED=0 GOOS=linux go build -o /simulator
 
@@ -23,7 +23,6 @@ CMD ["air"]
 FROM alpine:latest
 
 COPY --from=builder /simulator /simulator
-COPY --from=builder /app/static/ /static/
 
 EXPOSE 8080
 

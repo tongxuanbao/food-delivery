@@ -16,30 +16,17 @@ func main() {
 	})
 
 	http.HandleFunc("/new", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello world, it's order1 service\n")
-		go func() {
-			log.Println("Order placed")
-			time.Sleep(5 * time.Second)
-			log.Println("Order accepted")
-			time.Sleep(5 * time.Second)
-			log.Println("Order cooking")
-			time.Sleep(5 * time.Second)
-			log.Println("Order cooked and waiting for shipper")
-			time.Sleep(5 * time.Second)
-			log.Println("Order on the way")
-			time.Sleep(5 * time.Second)
-			log.Println("Order delivered")
-		}()
+		fmt.Fprintf(w, "Hello world, it's backend1 service\n")
 	})
 
 	server := &http.Server{Addr: ":8080"}
 
 	go func() {
-		log.Println("Starting ORDER server on port 8080")
+		log.Println("Starting backend server on port 8080")
 
 		err := server.ListenAndServe()
 		if err != nil {
-			log.Printf("Error starting ORDER server: %s\n", err)
+			log.Printf("Error starting backend server: %s\n", err)
 			os.Exit(1)
 		}
 	}()
