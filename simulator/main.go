@@ -19,10 +19,10 @@ func main() {
 		fmt.Fprintf(w, "Hello world, it's Simulator1 service\n")
 	})
 
-	server := &http.Server{Addr: ":8080"}
+	server := &http.Server{Addr: ":4000"}
 
 	go func() {
-		log.Println("Starting Simulator server on port 8080")
+		log.Println("Starting Simulator server on port 4000")
 
 		err := server.ListenAndServe()
 		if err != nil {
