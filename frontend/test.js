@@ -2,7 +2,7 @@ import {readFile, writeFile} from "fs";
 
 const toString = (coord) => `${coord[0]}_${coord[1]}`;
 
-readFile('adjacentListFinal.json', function(err, data) { 
+readFile('adjacentListPixel.json', function(err, data) { 
     const adjacentList = JSON.parse(data); 
     const visited = new Set();
     const m = new Map();
