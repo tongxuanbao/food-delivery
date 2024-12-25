@@ -11,10 +11,22 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as roottestImport } from './routes/__roottest'
+import { Route as TestImport } from './routes/test'
 import { Route as MapImport } from './routes/map'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const roottestRoute = roottestImport.update({
+  id: '/__roottest',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const TestRoute = TestImport.update({
+  path: '/test',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const MapRoute = MapImport.update({
   path: '/map',
@@ -37,11 +49,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/__roottest': {
+      id: '/__roottest'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof roottestImport
+      parentRoute: typeof rootRoute
+    }
     '/map': {
       id: '/map'
       path: '/map'
       fullPath: '/map'
       preLoaderRoute: typeof MapImport
+      parentRoute: typeof rootRoute
+    }
+    '/test': {
+      id: '/test'
+      path: '/test'
+      fullPath: '/test'
+      preLoaderRoute: typeof TestImport
       parentRoute: typeof rootRoute
     }
   }
@@ -51,37 +77,47 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '': typeof roottestRoute
   '/map': typeof MapRoute
+  '/test': typeof TestRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '': typeof roottestRoute
   '/map': typeof MapRoute
+  '/test': typeof TestRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/__roottest': typeof roottestRoute
   '/map': typeof MapRoute
+  '/test': typeof TestRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/map'
+  fullPaths: '/' | '' | '/map' | '/test'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/map'
-  id: '__root__' | '/' | '/map'
+  to: '/' | '' | '/map' | '/test'
+  id: '__root__' | '/' | '/__roottest' | '/map' | '/test'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  roottestRoute: typeof roottestRoute
   MapRoute: typeof MapRoute
+  TestRoute: typeof TestRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  roottestRoute: roottestRoute,
   MapRoute: MapRoute,
+  TestRoute: TestRoute,
 }
 
 export const routeTree = rootRoute
@@ -97,14 +133,22 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/map"
+        "/__roottest",
+        "/map",
+        "/test"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
+    "/__roottest": {
+      "filePath": "__roottest.tsx"
+    },
     "/map": {
       "filePath": "map.tsx"
+    },
+    "/test": {
+      "filePath": "test.tsx"
     }
   }
 }

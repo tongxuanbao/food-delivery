@@ -10,14 +10,20 @@
     "serve": "vite preview",
     "start": "vite"
   },
+  "prettier":{
+    "plugins": ["prettier-plugin-organize-imports"]
+  },
   "devDependencies": {
     "@tanstack/router-plugin": "^1.58.4",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
+    "prettier-plugin-organize-imports": "^4.1.0",
     "vite": "^5.4.4"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.0",
+    "@heroicons/react": "^2.2.0",
     "@tanstack/react-router": "^1.58.3",
     "@tanstack/router-devtools": "^1.58.3",
     "@turf/turf": "^7.1.0",
