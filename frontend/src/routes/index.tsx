@@ -1,31 +1,28 @@
-import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import Map from "../components/Map";
 
 export const Route = createFileRoute("/")({
   component: HomeComponent,
 });
 
 function HomeComponent() {
-  const [data, setData] = useState("");
-
-  useEffect(() => {
-    // opening a connection to the server to begin receiving events from it
-    const eventSource = new EventSource("http://localhost:8080/rates");
-
-    // attaching a handler to receive message events
-    eventSource.onmessage = (event) => {
-      console.log(event);
-      setData(event.data);
-    };
-
-    // terminating the connection on component unmount
-    return () => {
-      eventSource.close();
-    };
-  }, []);
   return (
-    <div className="p-2">
-      <h3>{`source1: ${data}`}</h3>
-    </div>
+    <>
+      <main className="lg:pl-20 h-screen">
+        <div className="xl:pl-96 h-full">
+          <div className="h-full flex px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
+            <Map />
+          </div>
+        </div>
+      </main>
+
+      <aside className="fixed inset-y-0 left-20 hidden w-96 overflow-y-auto border-r border-gray-200 px-4 py-6 sm:px-6 lg:px-8 xl:block bg-green">
+        <div className="h-full flex">
+          <div className="flex-grow relative overflow-hidden rounded-xl border border-dashed border-gray-400 opacity-75 bg-green-100">
+            home
+          </div>
+        </div>
+      </aside>
+    </>
   );
 }

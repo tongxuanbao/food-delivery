@@ -1,0 +1,2341 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.4 2390de5a",
+  "osm3s": {
+    "timestamp_osm_base": "2025-01-02T07:32:45Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 20959034,
+  "lat": -33.8581837,
+  "lon": 151.2094296,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "La Mela"
+  }
+},
+{
+  "type": "node",
+  "id": 20959043,
+  "lat": -33.8588135,
+  "lon": 151.2099910,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Cruise Bar"
+  }
+},
+{
+  "type": "node",
+  "id": 20959187,
+  "lat": -33.8581429,
+  "lon": 151.2083295,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Caminetto Restaurant"
+  }
+},
+{
+  "type": "node",
+  "id": 20959237,
+  "lat": -33.8623203,
+  "lon": 151.2071610,
+  "tags": {
+    "addr:city": "Sydney",
+    "addr:housenumber": "118",
+    "addr:postcode": "2000",
+    "addr:state": "NSW",
+    "addr:street": "Harrington Street",
+    "amenity": "restaurant",
+    "cuisine": "italian",
+    "name": "Rosetta",
+    "website": "giovannissydney.com"
+  }
+},
+{
+  "type": "node",
+  "id": 20959252,
+  "lat": -33.8712721,
+  "lon": 151.2041156,
+  "tags": {
+    "addr:floor": "3",
+    "amenity": "restaurant",
+    "name": "The Rooftop",
+    "opening_hours": "We-Fr 12:00-24:00;Sa 12:00-17:00",
+    "wheelchair": "limited"
+  }
+},
+{
+  "type": "node",
+  "id": 348994783,
+  "lat": -33.8675288,
+  "lon": 151.2018027,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Spice Room at the Malaya"
+  }
+},
+{
+  "type": "node",
+  "id": 743312720,
+  "lat": -33.8590636,
+  "lon": 151.2084022,
+  "tags": {
+    "amenity": "restaurant",
+    "check_date": "2024-07-26",
+    "name": "Pony dining",
+    "website": "https://www.ponydining.com.au/"
+  }
+},
+{
+  "type": "node",
+  "id": 1117739830,
+  "lat": -33.8691237,
+  "lon": 151.2101929,
+  "tags": {
+    "addr:housenumber": "165",
+    "addr:postcode": "2000",
+    "addr:street": "King Street",
+    "amenity": "restaurant",
+    "cuisine": "chinese",
+    "name": "Deli Choice"
+  }
+},
+{
+  "type": "node",
+  "id": 1160951409,
+  "lat": -33.8622280,
+  "lon": 151.2108234,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Cafe Sydney",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1160951438,
+  "lat": -33.8722054,
+  "lon": 151.2020521,
+  "tags": {
+    "amenity": "restaurant",
+    "level": "0",
+    "name": "Nick's 103",
+    "outdoor_seating": "yes",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1262710152,
+  "lat": -33.8711740,
+  "lon": 151.2022958,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Pontoon Bar",
+    "outdoor_seating": "yes",
+    "wheelchair": "limited"
+  }
+},
+{
+  "type": "node",
+  "id": 1262710217,
+  "lat": -33.8716077,
+  "lon": 151.2023210,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "italian",
+    "name": "Baia",
+    "outdoor_seating": "yes",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1262720262,
+  "lat": -33.8721940,
+  "lon": 151.2022642,
+  "tags": {
+    "addr:housenumber": "1",
+    "addr:street": "Harbour Street",
+    "amenity": "restaurant",
+    "branch": "Chocolate Cafe",
+    "brand": "Lindt",
+    "brand:wikidata": "Q152822",
+    "cuisine": "chocolate",
+    "name": "Lindt",
+    "shop": "chocolate",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1262764790,
+  "lat": -33.8719285,
+  "lon": 151.2022088,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Adria",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1262764871,
+  "lat": -33.8717769,
+  "lon": 151.2022367,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "I'm Angus",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1262974696,
+  "lat": -33.8727133,
+  "lon": 151.2019526,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Homebar",
+    "outdoor_seating": "yes",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1268699984,
+  "lat": -33.8686909,
+  "lon": 151.2017062,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Cargo bar",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1652365022,
+  "lat": -33.8585562,
+  "lon": 151.2034006,
+  "tags": {
+    "addr:city": "Millers Point",
+    "addr:postcode": "2000",
+    "addr:state": "NSW",
+    "addr:street": "Kent Street",
+    "amenity": "restaurant",
+    "cuisine": "japanese",
+    "name": "Tago-An",
+    "outdoor_seating": "no",
+    "smoking": "no",
+    "source": "survey"
+  }
+},
+{
+  "type": "node",
+  "id": 1653959469,
+  "lat": -33.8627207,
+  "lon": 151.2065122,
+  "tags": {
+    "addr:housenumber": "135",
+    "addr:postcode": "2000",
+    "addr:street": "Harrington Street",
+    "amenity": "restaurant",
+    "name": "Belgian Beer Cafe",
+    "website": "http://heritagebarandrestaurant.com.au",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1719859876,
+  "lat": -33.8678165,
+  "lon": 151.2063816,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Athenian Restaurant",
+    "wheelchair": "limited"
+  }
+},
+{
+  "type": "node",
+  "id": 1812389142,
+  "lat": -33.8713353,
+  "lon": 151.2024826,
+  "tags": {
+    "addr:housenumber": "201",
+    "addr:postcode": "2000",
+    "addr:street": "Sussex Street",
+    "amenity": "restaurant",
+    "contact:facebook": "https://www.facebook.com/pages/Chinta-Ria-Temple-Of-Love/133265790054252",
+    "level": "2",
+    "name": "Chinta Ria",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 2097580046,
+  "lat": -33.8661043,
+  "lon": 151.2084170,
+  "tags": {
+    "addr:city": "Sydney",
+    "addr:housenumber": "107",
+    "addr:postcode": "2000",
+    "addr:state": "NSW",
+    "addr:street": "Pitt Street",
+    "amenity": "restaurant",
+    "cuisine": "italian",
+    "name": "Jamie's Italian",
+    "website": "https://www.jamieoliver.com/italian/australia/restaurants/sydney/"
+  }
+},
+{
+  "type": "node",
+  "id": 2262381841,
+  "lat": -33.8686192,
+  "lon": 151.2202282,
+  "tags": {
+    "addr:housenumber": "6",
+    "addr:postcode": "2011",
+    "addr:street": "Cowper Wharf Road",
+    "addr:unit": "4",
+    "amenity": "restaurant",
+    "cuisine": "asian",
+    "name": "China Doll",
+    "outdoor_seating": "yes",
+    "source": "02 9380 6744",
+    "website": "https://www.chinadoll.com.au/"
+  }
+},
+{
+  "type": "node",
+  "id": 2262384570,
+  "lat": -33.8694695,
+  "lon": 151.2072559,
+  "tags": {
+    "addr:housenumber": "412-414",
+    "addr:postcode": "2000",
+    "addr:street": "George Street",
+    "amenity": "restaurant",
+    "cuisine": "italian",
+    "name": "Pendolino",
+    "source": "02 9231 6117",
+    "website": "https://www.pendolino.com.au/"
+  }
+},
+{
+  "type": "node",
+  "id": 2524742470,
+  "lat": -33.8683143,
+  "lon": 151.2016924,
+  "tags": {
+    "addr:city": "Sydney",
+    "addr:housename": "King Street Wharf Building",
+    "addr:housenumber": "42-48",
+    "addr:postcode": "2000",
+    "addr:street": "Lime Street",
+    "amenity": "restaurant",
+    "changing_table": "yes",
+    "changing_table:location": "yes",
+    "check_date": "2024-08-07",
+    "cuisine": "italian",
+    "highchair": "yes",
+    "internet_access": "no",
+    "name": "Casa di Nico",
+    "phone": "+61 2 9279 4115",
+    "toilets:wheelchair": "yes",
+    "website": "https://lovecasa.com.au/",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 2744297159,
+  "lat": -33.8661130,
+  "lon": 151.2102798,
+  "tags": {
+    "addr:city": "Sydney",
+    "addr:housenumber": "10",
+    "addr:postcode": "2000",
+    "addr:street": "Bligh Street",
+    "amenity": "restaurant",
+    "cuisine": "asian_fusion",
+    "name": "Spice Temple"
+  }
+},
+{
+  "type": "node",
+  "id": 2744297165,
+  "lat": -33.8660112,
+  "lon": 151.2103603,
+  "tags": {
+    "addr:city": "Sydney",
+    "addr:housenumber": "66",
+    "addr:postcode": "2000",
+    "addr:street": "Hunter Street",
+    "amenity": "restaurant",
+    "cuisine": "international",
+    "name": "Rockpool Bar & Grill"
+  }
+},
+{
+  "type": "node",
+  "id": 2759887179,
+  "lat": -33.8682478,
+  "lon": 151.2204442,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "seafood",
+    "name": "Manta",
+    "outdoor_seating": "yes",
+    "website": "https://mantarestaurant.com.au/"
+  }
+},
+{
+  "type": "node",
+  "id": 2759887180,
+  "lat": -33.8680617,
+  "lon": 151.2205497,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "italian;seafood",
+    "name": "Otto Ristorante",
+    "outdoor_seating": "yes",
+    "website": "https://ottoristorante.com.au/sydney/"
+  }
+},
+{
+  "type": "node",
+  "id": 2839253033,
+  "lat": -33.8705599,
+  "lon": 151.2081234,
+  "tags": {
+    "amenity": "restaurant",
+    "level": "-1",
+    "name": "Cellini's Cafe"
+  }
+},
+{
+  "type": "node",
+  "id": 2972878167,
+  "lat": -33.8714234,
+  "lon": 151.2044743,
+  "tags": {
+    "addr:housenumber": "1",
+    "addr:shop": "2",
+    "addr:street": "Market Street",
+    "amenity": "restaurant",
+    "brand": "Menya Noodle Bar",
+    "contact:phone": "+61 2 9267 4649",
+    "contact:website": "http://www.menya.com.au",
+    "name": "Menya-City",
+    "opening_hours": "Mo-We,Sa 11:30-14:30,05:30-20:30; Th,Fr 11:30-14:30,05:30-21:00; Su,PH off",
+    "source": "survey",
+    "source:location": "extrapolation",
+    "wheelchair": "limited"
+  }
+},
+{
+  "type": "node",
+  "id": 3039274495,
+  "lat": -33.8677080,
+  "lon": 151.2078305,
+  "tags": {
+    "addr:city": "Sydney",
+    "addr:housenumber": "1",
+    "addr:postcode": "2000",
+    "addr:state": "NSW",
+    "addr:street": "Martin Place",
+    "amenity": "restaurant",
+    "name": "Prime Steak Restaurant",
+    "opening_hours": "Tu-Fr 12:00-15:00; Mo-Sa 18:00-22:00"
+  }
+},
+{
+  "type": "node",
+  "id": 3147054965,
+  "lat": -33.8709611,
+  "lon": 151.2076591,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Gowings Bar & Grill",
+    "source": "survey",
+    "source:location": "extrapolation"
+  }
+},
+{
+  "type": "node",
+  "id": 3476198933,
+  "lat": -33.8708151,
+  "lon": 151.2046942,
+  "tags": {
+    "amenity": "restaurant",
+    "check_date": "2024-08-07",
+    "cuisine": "greek",
+    "name": "Medusa"
+  }
+},
+{
+  "type": "node",
+  "id": 3476205572,
+  "lat": -33.8708452,
+  "lon": 151.2054095,
+  "tags": {
+    "amenity": "restaurant",
+    "bar": "yes",
+    "name": "de Vine",
+    "wheelchair": "limited"
+  }
+},
+{
+  "type": "node",
+  "id": 3632413910,
+  "lat": -33.8596041,
+  "lon": 151.2080544,
+  "tags": {
+    "addr:city": "Sydney",
+    "addr:housenumber": "34",
+    "addr:postcode": "2000",
+    "addr:state": "NSW",
+    "addr:street": "Harrington Street",
+    "addr:suburb": "The Rocks",
+    "amenity": "restaurant",
+    "cuisine": "french;crepe;galette;coffee;bagel",
+    "delivery": "no",
+    "name": "Crêperie Suzette",
+    "opening_hours": "Mo-Fr 07:30-15:00; Sa-Su 08:30-16:30",
+    "takeaway": "yes",
+    "website": "https://www.harbourrocks.com.au/dining/creperie-suzette/"
+  }
+},
+{
+  "type": "node",
+  "id": 3909908837,
+  "lat": -33.8718895,
+  "lon": 151.2072580,
+  "tags": {
+    "addr:housenumber": "488",
+    "addr:street": "George Street",
+    "amenity": "restaurant",
+    "capacity": "240",
+    "contact:facebook": "https://www.facebook.com/glassbrasserie/",
+    "contact:instagram": "https://www.instagram.com/glassbrasserie/",
+    "contact:twitter": "https://twitter.com/glassbrasserie",
+    "cuisine": "australian;regional",
+    "email": "glass.sydney@hilton.com",
+    "fax": "+61 2 9265 6040",
+    "level": "2",
+    "name": "Glass Brasserie",
+    "opening_hours": "Mo-Fr 06:30-10:00,12:00-15:00,18:00-21:30; Sa 07:00-10:30,14:00-16:30,17:30-22:00, Su 07:00-10:30,14:00-16:30,18:00-21:30",
+    "phone": "+61 2 9265 6068",
+    "website": "https://www.glassbrasserie.com.au/",
+    "wheelchair": "yes",
+    "wikidata": "Q118164028"
+  }
+},
+{
+  "type": "node",
+  "id": 3996822657,
+  "lat": -33.8722211,
+  "lon": 151.2073808,
+  "tags": {
+    "amenity": "restaurant",
+    "level": "1",
+    "name": "Lotus"
+  }
+},
+{
+  "type": "node",
+  "id": 3996822658,
+  "lat": -33.8723907,
+  "lon": 151.2075363,
+  "tags": {
+    "amenity": "restaurant",
+    "level": "1",
+    "name": "Yayoi"
+  }
+},
+{
+  "type": "node",
+  "id": 3996822857,
+  "lat": -33.8726462,
+  "lon": 151.2076300,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "noodle;japanese",
+    "indoor_seating": "yes",
+    "level": "2",
+    "name": "Ichiban Boshi",
+    "name:ja": "一番星",
+    "outdoor_seating": "no",
+    "phone": "+61 2 9262 7677"
+  }
+},
+{
+  "type": "node",
+  "id": 4002324892,
+  "lat": -33.8677645,
+  "lon": 151.2016543,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Nick's"
+  }
+},
+{
+  "type": "node",
+  "id": 4002324893,
+  "lat": -33.8667684,
+  "lon": 151.2015244,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Hulu",
+    "toilets:wheelchair": "yes",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4002324894,
+  "lat": -33.8665534,
+  "lon": 151.2014999,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Meat District Co.",
+    "toilets:wheelchair": "no",
+    "wheelchair": "limited"
+  }
+},
+{
+  "type": "node",
+  "id": 4002324895,
+  "lat": -33.8666496,
+  "lon": 151.2015110,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "George's",
+    "toilets:wheelchair": "yes",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4002324896,
+  "lat": -33.8663226,
+  "lon": 151.2014550,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Beer DeLuxe"
+  }
+},
+{
+  "type": "node",
+  "id": 4036222390,
+  "lat": -33.8621732,
+  "lon": 151.2036766,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Lucetta"
+  }
+},
+{
+  "type": "node",
+  "id": 4057788790,
+  "lat": -33.8689075,
+  "lon": 151.2039111,
+  "tags": {
+    "addr:housenumber": "29",
+    "addr:postcode": "2000",
+    "addr:street": "King Street",
+    "amenity": "restaurant",
+    "cuisine": "thai",
+    "name": "Peace Harmony",
+    "phone": "+61 433 479 794",
+    "website": "https://www.peaceharmony.com.au/"
+  }
+},
+{
+  "type": "node",
+  "id": 4223906589,
+  "lat": -33.8681951,
+  "lon": 151.2076706,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "GPO Grand Restaurants & Bars",
+    "name:zh": "郵政局"
+  }
+},
+{
+  "type": "node",
+  "id": 4242649245,
+  "lat": -33.8598506,
+  "lon": 151.2129396,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Guylian, Sydney"
+  }
+},
+{
+  "type": "node",
+  "id": 4242649415,
+  "lat": -33.8613482,
+  "lon": 151.2114901,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "seafood",
+    "indoor_seating": "no",
+    "name": "Quay Seafood",
+    "outdoor_seating": "no",
+    "takeaway": "only"
+  }
+},
+{
+  "type": "node",
+  "id": 4242649492,
+  "lat": -33.8606494,
+  "lon": 151.2128550,
+  "tags": {
+    "amenity": "restaurant",
+    "check_date": "2024-07-26",
+    "cuisine": "italian",
+    "name": "Eastbank"
+  }
+},
+{
+  "type": "node",
+  "id": 4242650064,
+  "lat": -33.8597276,
+  "lon": 151.2082149,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Scarlett"
+  }
+},
+{
+  "type": "node",
+  "id": 4242650067,
+  "lat": -33.8683283,
+  "lon": 151.2061379,
+  "tags": {
+    "amenity": "restaurant",
+    "check_date": "2022-07-25",
+    "cuisine": "german",
+    "level": "0",
+    "name": "The Bavarian",
+    "theme": "german",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4290935389,
+  "lat": -33.8688209,
+  "lon": 151.2059039,
+  "tags": {
+    "amenity": "restaurant",
+    "brand": "Vapiano",
+    "brand:wikidata": "Q506252",
+    "check_date": "2024-11-11",
+    "check_date:opening_hours": "2022-12-13",
+    "cuisine": "italian",
+    "level": "0",
+    "name": "Vapiano",
+    "opening_hours:signed": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 4303506392,
+  "lat": -33.8684234,
+  "lon": 151.2058460,
+  "tags": {
+    "addr:housenumber": "73",
+    "addr:street": "York Street",
+    "alt_name": "One Tea Lounge",
+    "amenity": "restaurant",
+    "cuisine": "burger;tea;asian",
+    "email": "info@onetealounge.com.au",
+    "name": "One Tea Lounge & Grill",
+    "opening_hours": "Mo-Th 17:30-22:00; Fr-Sa 17:30-00:00",
+    "phone": "+61 2 9279 3311",
+    "website": "http://onetealounge.com.au"
+  }
+},
+{
+  "type": "node",
+  "id": 4304822792,
+  "lat": -33.8687308,
+  "lon": 151.2092869,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Thr1ve"
+  }
+},
+{
+  "type": "node",
+  "id": 4304828393,
+  "lat": -33.8719204,
+  "lon": 151.2066994,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Vanto"
+  }
+},
+{
+  "type": "node",
+  "id": 4304831794,
+  "lat": -33.8647886,
+  "lon": 151.2068214,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Iku"
+  }
+},
+{
+  "type": "node",
+  "id": 4304851691,
+  "lat": -33.8646699,
+  "lon": 151.2068363,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Mad Mex"
+  }
+},
+{
+  "type": "node",
+  "id": 4305154596,
+  "lat": -33.8641345,
+  "lon": 151.2076795,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "australian",
+    "name": "est."
+  }
+},
+{
+  "type": "node",
+  "id": 4422281496,
+  "lat": -33.8613088,
+  "lon": 151.2113051,
+  "tags": {
+    "amenity": "restaurant",
+    "indoor_seating": "yes",
+    "name": "Cityextra",
+    "outdoor_seating": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4439203091,
+  "lat": -33.8716019,
+  "lon": 151.2091975,
+  "tags": {
+    "addr:housenumber": "133-145",
+    "addr:street": "Castlereagh Street",
+    "addr:unit": "38",
+    "amenity": "restaurant",
+    "name": "Palace Chinese Restaurant"
+  }
+},
+{
+  "type": "node",
+  "id": 4448583527,
+  "lat": -33.8696657,
+  "lon": 151.1968587,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "thai",
+    "diet:vegetarian": "yes",
+    "indoor_seating": "yes",
+    "name": "Jumbo Thai",
+    "opening_hours": "Mo-Su 10:00-21:00",
+    "outdoor_seating": "no",
+    "payment:credit_cards": "yes",
+    "payment:debit_cards": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4467893689,
+  "lat": -33.8641135,
+  "lon": 151.2082992,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Mr Wong"
+  }
+},
+{
+  "type": "node",
+  "id": 4467893789,
+  "lat": -33.8660047,
+  "lon": 151.2084510,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "mexican",
+    "name": "Mejico",
+    "website": "https://mejico.com.au/"
+  }
+},
+{
+  "type": "node",
+  "id": 4514129585,
+  "lat": -33.8616898,
+  "lon": 151.2122934,
+  "tags": {
+    "addr:city": "Sydney",
+    "addr:housenumber": "2",
+    "addr:place": "Circular Quay",
+    "addr:postcode": "2000",
+    "addr:street": "Phillip Street",
+    "amenity": "restaurant",
+    "cuisine": "indian",
+    "email": "info@thespiceroom.com.au",
+    "name": "The Spice Room",
+    "opening_hours": "Tu-Su 12:00-15:00, 17:00-22:15; Mo 17:00-22:15",
+    "phone": "+61 2 9251 9990",
+    "website": "https://thespiceroom.com.au/"
+  }
+},
+{
+  "type": "node",
+  "id": 4514137743,
+  "lat": -33.8586979,
+  "lon": 151.2034215,
+  "tags": {
+    "addr:city": "Sydney",
+    "addr:housenumber": "29",
+    "addr:place": "The Rocks",
+    "addr:street": "Kent Street",
+    "amenity": "restaurant",
+    "cuisine": "fish",
+    "name": "Fish at the Rocks",
+    "phone": "+61 2 9252 4614",
+    "website": "https://fishattherocks.com.au/"
+  }
+},
+{
+  "type": "node",
+  "id": 4516417851,
+  "lat": -33.8632918,
+  "lon": 151.2109119,
+  "tags": {
+    "addr:city": "Sydney",
+    "addr:housenumber": "48",
+    "addr:postcode": "2000",
+    "addr:street": "Bridge Street",
+    "amenity": "restaurant",
+    "name": "Bridge Room",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4528268995,
+  "lat": -33.8652750,
+  "lon": 151.2097053,
+  "tags": {
+    "addr:housenumber": "12-14",
+    "addr:postcode": "2000",
+    "addr:street": "O'Connell Street",
+    "amenity": "restaurant",
+    "cuisine": "asian;japanese;sushi",
+    "name": "Izakaya Masuya",
+    "name:ja": "居酒屋ますや"
+  }
+},
+{
+  "type": "node",
+  "id": 4528360589,
+  "lat": -33.8588938,
+  "lon": 151.2074927,
+  "tags": {
+    "addr:housenumber": "12",
+    "addr:postcode": "2000",
+    "addr:street": "Argyle Street",
+    "amenity": "restaurant",
+    "cuisine": "japanese;sushi;asian",
+    "name": "Sake Restaurant & Bar",
+    "phone": "+61 2 9259 5656"
+  }
+},
+{
+  "type": "node",
+  "id": 4645230990,
+  "lat": -33.8689174,
+  "lon": 151.2040177,
+  "tags": {
+    "addr:housenumber": "29A",
+    "addr:street": "King Street",
+    "amenity": "restaurant",
+    "cuisine": "grill",
+    "name": "Kingsleys Australian Steakhouse",
+    "phone": "+61 2 9295 5080",
+    "website": "www.kingsleysausteak.com.au",
+    "wheelchair": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 4673985290,
+  "lat": -33.8649763,
+  "lon": 151.2111587,
+  "tags": {
+    "addr:housenumber": "21",
+    "addr:postcode": "2000",
+    "addr:street": "Bent Street",
+    "amenity": "restaurant",
+    "name": "Contrabando"
+  }
+},
+{
+  "type": "node",
+  "id": 4689105297,
+  "lat": -33.8651583,
+  "lon": 151.2103039,
+  "tags": {
+    "amenity": "restaurant",
+    "phone": "+61 2 9232 0881",
+    "website": "http://www.restauranthubert.com/"
+  }
+},
+{
+  "type": "node",
+  "id": 4726510589,
+  "lat": -33.8625269,
+  "lon": 151.2095130,
+  "tags": {
+    "addr:street": "Bulletin Place",
+    "amenity": "restaurant",
+    "indoor_seating": "yes",
+    "name": "Tapa Vino",
+    "name:fr": "Tapa Vino",
+    "outdoor_seating": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q60231981"
+  }
+},
+{
+  "type": "node",
+  "id": 4739101144,
+  "lat": -33.8593792,
+  "lon": 151.2130152,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "chinese",
+    "name": "The East",
+    "name:en": "The East"
+  }
+},
+{
+  "type": "node",
+  "id": 4739109527,
+  "lat": -33.8601912,
+  "lon": 151.2129345,
+  "tags": {
+    "amenity": "restaurant",
+    "check_date": "2024-07-26",
+    "cuisine": "steak_house;seafood",
+    "level": "0",
+    "name": "Searock Grill"
+  }
+},
+{
+  "type": "node",
+  "id": 4739109531,
+  "lat": -33.8603285,
+  "lon": 151.2128992,
+  "tags": {
+    "amenity": "restaurant",
+    "level": "0"
+  }
+},
+{
+  "type": "node",
+  "id": 4762860321,
+  "lat": -33.8598225,
+  "lon": 151.2085886,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Phillips Foote BBQ"
+  }
+},
+{
+  "type": "node",
+  "id": 4792800721,
+  "lat": -33.8659890,
+  "lon": 151.2103987,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Jamie Oliver's"
+  }
+},
+{
+  "type": "node",
+  "id": 4805738321,
+  "lat": -33.8633207,
+  "lon": 151.2120969,
+  "tags": {
+    "amenity": "restaurant"
+  }
+},
+{
+  "type": "node",
+  "id": 4844939921,
+  "lat": -33.8664607,
+  "lon": 151.2074326,
+  "tags": {
+    "addr:city": "Sydney",
+    "addr:housenumber": "330",
+    "addr:postcode": "2000",
+    "addr:state": "NSW",
+    "addr:street": "George Street",
+    "amenity": "restaurant",
+    "cuisine": "australian",
+    "name": "Palings Kitchen and Bar",
+    "opening_hours": "Mo-Sa 12:00-23:00",
+    "phone": "+61 2 9240 3000",
+    "website": "http://merivale.com.au/ivy"
+  }
+},
+{
+  "type": "node",
+  "id": 4844939923,
+  "lat": -33.8641355,
+  "lon": 151.2077560,
+  "tags": {
+    "addr:housenumber": "252",
+    "addr:street": "George Street",
+    "amenity": "restaurant",
+    "name": "hemmesphere"
+  }
+},
+{
+  "type": "node",
+  "id": 4926223921,
+  "lat": -33.8720903,
+  "lon": 151.2067229,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Zumbo Patisserie",
+    "name:en": "Zumbo Patisserie"
+  }
+},
+{
+  "type": "node",
+  "id": 4926224021,
+  "lat": -33.8709765,
+  "lon": 151.2066037,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Koko Black",
+    "opening_hours": "Mo-Sa 09:00-17:30; Su 11:00-17:30"
+  }
+},
+{
+  "type": "node",
+  "id": 5110562321,
+  "lat": -33.8665720,
+  "lon": 151.2076943,
+  "tags": {
+    "addr:housenumber": "2",
+    "addr:postcode": "2000",
+    "addr:street": "Ash Street",
+    "amenity": "restaurant",
+    "check_date": "2023-07-29",
+    "cuisine": "french",
+    "name": "Felix",
+    "opening_hours": "Mo-Fr 12:00-15:00, 17:30-22:30; Sa 17:30-22:30; Su 12:00-15:00, 17:30-21:30",
+    "phone": "+61 2 9240 3000",
+    "website": "http://www.merivale.com.au"
+  }
+},
+{
+  "type": "node",
+  "id": 5151396541,
+  "lat": -33.8635693,
+  "lon": 151.2016464,
+  "tags": {
+    "addr:housename": "Tower 1",
+    "addr:housenumber": "100",
+    "addr:street": "Barangaroo Avenue",
+    "air_conditioning": "yes",
+    "amenity": "restaurant",
+    "cuisine": "steak",
+    "email": "barangaroo@themeatandwineco.com",
+    "name": "The Meat & Wine Co",
+    "phone": "+61 2 8629 8888",
+    "website": "https://themeatandwineco.com/locations/barangaroo/"
+  }
+},
+{
+  "type": "node",
+  "id": 5170169821,
+  "lat": -33.8701185,
+  "lon": 151.1978585,
+  "tags": {
+    "addr:housenumber": "50",
+    "addr:street": "Murray Street",
+    "amenity": "restaurant",
+    "cuisine": "french",
+    "email": "restaurant@thelittlesnail.com.au",
+    "name": "The Little Snail",
+    "phone": "+61 2 9212 7512",
+    "website": "https://thelittlesnail.com.au"
+  }
+},
+{
+  "type": "node",
+  "id": 5203491724,
+  "lat": -33.8627623,
+  "lon": 151.2097600,
+  "tags": {
+    "addr:street": "Bulletin Place",
+    "amenity": "restaurant",
+    "cuisine": "italian",
+    "name": "Alfredo"
+  }
+},
+{
+  "type": "node",
+  "id": 5350634029,
+  "lat": -33.8594098,
+  "lon": 151.2086333,
+  "tags": {
+    "addr:housenumber": "93",
+    "addr:street": "George Street",
+    "amenity": "restaurant",
+    "name": "Zia Pina Pizzeria",
+    "opening_hours": "Mo-Su 12:00-15:00, Su-Th 17:00-22:00, Fr,Sa 17:00-23:00",
+    "phone": "+61 2 9247 2255",
+    "website": "https://www.ziapinatherocks.com.au/"
+  }
+},
+{
+  "type": "node",
+  "id": 5351907093,
+  "lat": -33.8657332,
+  "lon": 151.2080314,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Little Vietnamese Food"
+  }
+},
+{
+  "type": "node",
+  "id": 5532255338,
+  "lat": -33.8623488,
+  "lon": 151.2072891,
+  "tags": {
+    "addr:housenumber": "225",
+    "addr:postcode": "2000",
+    "addr:state": "NSW",
+    "addr:street": "George Street",
+    "addr:suburb": "Sydney",
+    "amenity": "restaurant",
+    "cuisine": "burger",
+    "name": "Burger Project Black Label",
+    "outdoor_seating": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 5577355221,
+  "lat": -33.8617442,
+  "lon": 151.2097566,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "french",
+    "name": "Four Frogs Creperie",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 5695523222,
+  "lat": -33.8631560,
+  "lon": 151.2121129,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "steak_house",
+    "internet_access": "wlan",
+    "name": "Meat & Wine Co"
+  }
+},
+{
+  "type": "node",
+  "id": 5767617653,
+  "lat": -33.8635646,
+  "lon": 151.2017251,
+  "tags": {
+    "amenity": "restaurant",
+    "email": "info@nolasydney.com",
+    "name": "NOLA New Orleans Style BBQ Restaurant.",
+    "opening_hours": "Mo-Fr 11:45-01:00; Sa 16:00-01:00; Su 11:45-18:00",
+    "phone": "+61 2 9188 3039",
+    "website": "https://www.nolasydney.com/"
+  }
+},
+{
+  "type": "node",
+  "id": 5835837685,
+  "lat": -33.8635680,
+  "lon": 151.2017656,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "New Orleans Smokehouse."
+  }
+},
+{
+  "type": "node",
+  "id": 5884172780,
+  "lat": -33.8675017,
+  "lon": 151.2032473,
+  "tags": {
+    "addr:housenumber": "65",
+    "addr:postcode": "2000",
+    "addr:state": "NSW",
+    "addr:street": "Sussex Street",
+    "amenity": "restaurant",
+    "capacity": "72",
+    "contact:facebook": "https://www.facebook.com/Solander-Dining-and-Bar-1775066266132580/",
+    "contact:instagram": "https://www.instagram.com/solander_diningandbar/",
+    "cuisine": "international",
+    "email": "solander_enquiries@hilton.com",
+    "name": "Solander Dining and Bar",
+    "opening_hours": "06:30-23:00",
+    "phone": "+61 2 8297 6016",
+    "website": "https://www.solanderdiningandbar.com.au",
+    "wheelchair": "yes",
+    "wikidata": "Q60624251"
+  }
+},
+{
+  "type": "node",
+  "id": 5896240109,
+  "lat": -33.8638349,
+  "lon": 151.2081308,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Fratelli Fresh"
+  }
+},
+{
+  "type": "node",
+  "id": 5905743862,
+  "lat": -33.8634866,
+  "lon": 151.2076812,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Sushi Family"
+  }
+},
+{
+  "type": "node",
+  "id": 5998082247,
+  "lat": -33.8696225,
+  "lon": 151.2101732,
+  "tags": {
+    "amenity": "restaurant",
+    "check_date": "2024-10-03",
+    "name": "Fix Wine"
+  }
+},
+{
+  "type": "node",
+  "id": 6077594220,
+  "lat": -33.8683190,
+  "lon": 151.2095147,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Eden Bar & Restaurant"
+  }
+},
+{
+  "type": "node",
+  "id": 6261160464,
+  "lat": -33.8648517,
+  "lon": 151.2017829,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Old Town"
+  }
+},
+{
+  "type": "node",
+  "id": 6261169082,
+  "lat": -33.8649538,
+  "lon": 151.2017668,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Two Sticks"
+  }
+},
+{
+  "type": "node",
+  "id": 6283813485,
+  "lat": -33.8678701,
+  "lon": 151.2050289,
+  "tags": {
+    "amenity": "restaurant",
+    "brand": "Nando's",
+    "brand:wikidata": "Q3472954",
+    "brand:wikipedia": "en:Nando's",
+    "cuisine": "chicken;portuguese",
+    "name": "Nando's",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6287365494,
+  "lat": -33.8638457,
+  "lon": 151.2016676,
+  "tags": {
+    "amenity": "restaurant",
+    "indoor_seating": "yes",
+    "name": "The Butchers Block",
+    "outdoor_seating": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6287371073,
+  "lat": -33.8637047,
+  "lon": 151.2016461,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Callao"
+  }
+},
+{
+  "type": "node",
+  "id": 6322295769,
+  "lat": -33.8651765,
+  "lon": 151.2015048,
+  "tags": {
+    "amenity": "restaurant",
+    "description": "Lunch - Dinner Monday - Sunday",
+    "name": "Born by Tapavino",
+    "phone": "+61 2 8072 7387",
+    "website": "http://borntapavino.com"
+  }
+},
+{
+  "type": "node",
+  "id": 6387152339,
+  "lat": -33.8659692,
+  "lon": 151.2019225,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Vessel Restaurant",
+    "website": "https://vesselsydney.com.au/"
+  }
+},
+{
+  "type": "node",
+  "id": 6424612289,
+  "lat": -33.8649797,
+  "lon": 151.2013410,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "vietnamese",
+    "name": "Pho Mo"
+  }
+},
+{
+  "type": "node",
+  "id": 6424612290,
+  "lat": -33.8652381,
+  "lon": 151.2013761,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "indian",
+    "name": "Spiced by Billus",
+    "toilets:wheelchair": "yes",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6424615120,
+  "lat": -33.8645975,
+  "lon": 151.2012827,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "turkish",
+    "name": "Anason",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6424615525,
+  "lat": -33.8644333,
+  "lon": 151.2012785,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "seafood",
+    "name": "Love Fish",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6424615528,
+  "lat": -33.8651436,
+  "lon": 151.2013533,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Born by Tapavino",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6424615717,
+  "lat": -33.8645327,
+  "lon": 151.2012746,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Muum Maam",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6424615733,
+  "lat": -33.8641973,
+  "lon": 151.2012506,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Lotus",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6424615734,
+  "lat": -33.8648776,
+  "lon": 151.2013423,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "japanese",
+    "indoor_seating": "no",
+    "name": "Zushi",
+    "outdoor_seating": "yes",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6424615765,
+  "lat": -33.8666341,
+  "lon": 151.2016257,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Steersons Steakhouse",
+    "opening_hours": "Mo-Su 12:00-15:00, 05:30-22:30"
+  }
+},
+{
+  "type": "node",
+  "id": 6424615785,
+  "lat": -33.8639171,
+  "lon": 151.2012236,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Cirrus",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6460914872,
+  "lat": -33.8681491,
+  "lon": 151.2017941,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "indian",
+    "name": "Manjit's",
+    "toilets:wheelchair": "yes",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6460915030,
+  "lat": -33.8675865,
+  "lon": 151.2020552,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Lal Qila",
+    "website": "https://www.lalqila.com.au/"
+  }
+},
+{
+  "type": "node",
+  "id": 6460915108,
+  "lat": -33.8666557,
+  "lon": 151.2037686,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "thai",
+    "name": "Thai Connection"
+  }
+},
+{
+  "type": "node",
+  "id": 6474184840,
+  "lat": -33.8639486,
+  "lon": 151.2025346,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Brings Bao+Beer",
+    "outdoor_seating": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6477383657,
+  "lat": -33.8663191,
+  "lon": 151.2054459,
+  "tags": {
+    "amenity": "restaurant",
+    "check_date": "2024-05-21",
+    "name": "Made in Italy"
+  }
+},
+{
+  "type": "node",
+  "id": 6581508004,
+  "lat": -33.8668981,
+  "lon": 151.2064770,
+  "tags": {
+    "amenity": "restaurant",
+    "bar": "yes",
+    "name": "Bopp & Tone",
+    "opening_hours": "Mo-Th 11:30-23:00; Fr-Sa 11:30-00:00; Su 11:30-17:00",
+    "outdoor_seating": "yes",
+    "toilets": "yes",
+    "toilets:access": "customers",
+    "toilets:wheelchair": "yes",
+    "website": "https://boppandtone.com.au/",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6624825485,
+  "lat": -33.8653014,
+  "lon": 151.2096569,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "The Carter"
+  }
+},
+{
+  "type": "node",
+  "id": 6961251016,
+  "lat": -33.8588733,
+  "lon": 151.2083482,
+  "tags": {
+    "amenity": "restaurant",
+    "check_date": "2024-12-15",
+    "name": "Pancakes on the Rocks"
+  }
+},
+{
+  "type": "node",
+  "id": 7055623287,
+  "lat": -33.8666105,
+  "lon": 151.2075761,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Ash St Cellar"
+  }
+},
+{
+  "type": "node",
+  "id": 7055961986,
+  "lat": -33.8616016,
+  "lon": 151.2076049,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Mode Kitchen & Bar",
+    "website": "https://modekitchenandbar.com.au/"
+  }
+},
+{
+  "type": "node",
+  "id": 7150109729,
+  "lat": -33.8637988,
+  "lon": 151.2087822,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Republic Hotel",
+    "website": "https://republichotel.com/"
+  }
+},
+{
+  "type": "node",
+  "id": 8221306790,
+  "lat": -33.8670545,
+  "lon": 151.2091380,
+  "tags": {
+    "addr:housenumber": "1",
+    "addr:postcode": "2000",
+    "addr:state": "NSW",
+    "addr:street": "Hosking Place",
+    "addr:suburb": "Sydney",
+    "amenity": "restaurant",
+    "cuisine": "japanese",
+    "level": "0",
+    "name": "Suminoya Japanese Restaurant",
+    "opening_hours": "Mo-Fr 12:00-14:00, Mo-Sa 17:30-21:00",
+    "phone": "+61 2 9231 2177",
+    "website": "https://www.suminoya.com.au/"
+  }
+},
+{
+  "type": "node",
+  "id": 9273516248,
+  "lat": -33.8668805,
+  "lon": 151.2077119,
+  "tags": {
+    "addr:housenumber": "2-12",
+    "addr:street": "Angel Place",
+    "addr:unit": "1",
+    "amenity": "restaurant",
+    "name": "Leo",
+    "website": "https://restaurantleo.com.au/"
+  }
+},
+{
+  "type": "node",
+  "id": 9647254752,
+  "lat": -33.8658716,
+  "lon": 151.2070901,
+  "tags": {
+    "amenity": "restaurant",
+    "brand": "PappaRich",
+    "brand:wikidata": "Q95721282",
+    "cuisine": "malaysian",
+    "level": "-2",
+    "name": "PappaRich"
+  }
+},
+{
+  "type": "node",
+  "id": 9647283687,
+  "lat": -33.8670440,
+  "lon": 151.2072660,
+  "tags": {
+    "amenity": "restaurant",
+    "check_date": "2024-10-03",
+    "level": "-1",
+    "name": "Indu"
+  }
+},
+{
+  "type": "node",
+  "id": 9647290243,
+  "lat": -33.8657498,
+  "lon": 151.2070198,
+  "tags": {
+    "amenity": "restaurant",
+    "check_date": "2024-05-21",
+    "cuisine": "ramen",
+    "level": "-2",
+    "name": "Tenko Mori",
+    "website": "https://tenkomori.com.au"
+  }
+},
+{
+  "type": "node",
+  "id": 9647360758,
+  "lat": -33.8664548,
+  "lon": 151.2073481,
+  "tags": {
+    "addr:housenumber": "330A",
+    "addr:postcode": "2000",
+    "addr:state": "NSW",
+    "addr:street": "George Street",
+    "addr:suburb": "Sydney",
+    "amenity": "restaurant",
+    "name": "Bar Totti's"
+  }
+},
+{
+  "type": "node",
+  "id": 9908548033,
+  "lat": -33.8661216,
+  "lon": 151.2055865,
+  "tags": {
+    "amenity": "restaurant",
+    "check_date": "2022-07-25",
+    "cuisine": "japanese",
+    "level": "1",
+    "name": "little arar"
+  }
+},
+{
+  "type": "node",
+  "id": 9933160535,
+  "lat": -33.8627204,
+  "lon": 151.2108830,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Bar Mammoni",
+    "outdoor_seating": "yes",
+    "outdoor_seating:comfort": "cushion_chair",
+    "website": "https://barmammoni.sydney/",
+    "wheelchair": "limited"
+  }
+},
+{
+  "type": "node",
+  "id": 9933161577,
+  "lat": -33.8624686,
+  "lon": 151.2107433,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "french",
+    "name": "Bouillon L'Entrecôte",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9976568217,
+  "lat": -33.8697892,
+  "lon": 151.2083119,
+  "tags": {
+    "amenity": "restaurant"
+  }
+},
+{
+  "type": "node",
+  "id": 10057290840,
+  "lat": -33.8672576,
+  "lon": 151.2052563,
+  "tags": {
+    "amenity": "restaurant",
+    "bar": "yes",
+    "cuisine": "japanese",
+    "description": "Ramen and Sake bar",
+    "name": "O'Uchi",
+    "opening_hours": "Tu-Fr 11:30-14:30, 17:00-20:30; Sa 17:00-20:30",
+    "outdoor_seating": "yes",
+    "phone": "+61 2 9299 3237",
+    "takeaway": "yes",
+    "website": "https://ouchi.com.au/"
+  }
+},
+{
+  "type": "node",
+  "id": 10081134717,
+  "lat": -33.8677242,
+  "lon": 151.2120436,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Toppi",
+    "outdoor_seating": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 10117654462,
+  "lat": -33.8701991,
+  "lon": 151.2052930,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Izgara"
+  }
+},
+{
+  "type": "node",
+  "id": 10184992039,
+  "lat": -33.8686053,
+  "lon": 151.2109415,
+  "tags": {
+    "addr:housenumber": "167",
+    "addr:postcode": "2000",
+    "addr:state": "NSW",
+    "addr:street": "Phillip Street",
+    "amenity": "restaurant",
+    "name": "Continental Delicatessen",
+    "website": "https://www.continentaldelicatessen.com.au/cbd"
+  }
+},
+{
+  "type": "node",
+  "id": 10575475745,
+  "lat": -33.8678635,
+  "lon": 151.2167854,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Terrace Restaurant",
+    "opening_hours": "Mo-Fr 11:30-15:30; Sa,Su 09:00-15:30",
+    "outdoor_seating": "yes",
+    "website": "https://www.terraceonthedomain.com.au/restaurant-menu/"
+  }
+},
+{
+  "type": "node",
+  "id": 10628342885,
+  "lat": -33.8671285,
+  "lon": 151.2082925,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "thai",
+    "name": "Long Chim"
+  }
+},
+{
+  "type": "node",
+  "id": 10672024885,
+  "lat": -33.8671161,
+  "lon": 151.2078484,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "China Lane",
+    "outdoor_seating": "yes",
+    "outdoor_seating:comfort": "cushion_chair"
+  }
+},
+{
+  "type": "node",
+  "id": 10708183273,
+  "lat": -33.8677511,
+  "lon": 151.2180777,
+  "tags": {
+    "amenity": "restaurant",
+    "check_date": "2023-03-04",
+    "contact:instagram": "moddiningbyclaytonwells",
+    "diet:vegan": "yes",
+    "diet:vegetarian": "yes",
+    "indoor_seating": "yes",
+    "name": "MOD. Dining",
+    "opening_hours": "Th-Tu 10:00-16:00; We 10:00-21:00",
+    "outdoor_seating": "yes",
+    "payment:credit_cards": "yes",
+    "payment:debit_cards": "yes",
+    "reservation": "no",
+    "website": "https://www.moddining.com.au/"
+  }
+},
+{
+  "type": "node",
+  "id": 10769919625,
+  "lat": -33.8666323,
+  "lon": 151.2073014,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Nunu"
+  }
+},
+{
+  "type": "node",
+  "id": 10774453668,
+  "lat": -33.8652601,
+  "lon": 151.2077250,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "lebanese",
+    "name": "Zaffi"
+  }
+},
+{
+  "type": "node",
+  "id": 10830917001,
+  "lat": -33.8594087,
+  "lon": 151.2127595,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Whalebridge",
+    "website": "https://whalebridge.com.au/"
+  }
+},
+{
+  "type": "node",
+  "id": 10959317151,
+  "lat": -33.8685769,
+  "lon": 151.2092914,
+  "tags": {
+    "addr:housenumber": "25",
+    "addr:postcode": "2000",
+    "addr:state": "NSW",
+    "addr:street": "Martin Place",
+    "addr:suburb": "Sydney",
+    "addr:unit": "Shop 8.01",
+    "amenity": "restaurant",
+    "cuisine": "japanese",
+    "name": "Kazan Dining",
+    "opening_hours": "Mo-Th 12:00-15:00,17:30-22:00; Fr 12:00-15:00,17:30-22:30; Sa 17:30-22:30; Su off",
+    "phone": "+61 2 8080 8074",
+    "website": "https://kazandining.au"
+  }
+},
+{
+  "type": "node",
+  "id": 11011551467,
+  "lat": -33.8697520,
+  "lon": 151.1972207,
+  "tags": {
+    "addr:housenumber": "84",
+    "addr:street": "Union Street",
+    "addr:suburb": "Pyrmont",
+    "amenity": "restaurant",
+    "bar": "yes",
+    "email": "info@thelanewaypyrmont.com.au",
+    "indoor_seating": "yes",
+    "name": "The Laneway",
+    "opening_hours": "Su-We 10:00-24:00;Th-Sa 10:00-25:00",
+    "outdoor_seating": "yes",
+    "payment:credit_cards": "yes",
+    "payment:debit_cards": "yes",
+    "phone": "+61 02 9191 7895",
+    "website": "https://www.thelanewaypyrmont.com.au/"
+  }
+},
+{
+  "type": "node",
+  "id": 11162086070,
+  "lat": -33.8688135,
+  "lon": 151.2201182,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "steak_house",
+    "name": "Elements Bar & Grill",
+    "outdoor_seating": "yes",
+    "website": "https://www.elementsbarandgrill.com.au/"
+  }
+},
+{
+  "type": "node",
+  "id": 11175519736,
+  "lat": -33.8730347,
+  "lon": 151.2197072,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Twin Peeks",
+    "outdoor_seating": "no",
+    "website": "https://www.twinpeeks.com.au/"
+  }
+},
+{
+  "type": "node",
+  "id": 11298654087,
+  "lat": -33.8715904,
+  "lon": 151.2062347,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "malaysian",
+    "name": "Ho Jiak",
+    "opening_hours": "Mo-Th,Su 11:30-22:00; Fr-Sa 11:30-22:30",
+    "wheelchair": "limited"
+  }
+},
+{
+  "type": "node",
+  "id": 11330474369,
+  "lat": -33.8587355,
+  "lon": 151.2077811,
+  "tags": {
+    "amenity": "restaurant"
+  }
+},
+{
+  "type": "node",
+  "id": 11330474670,
+  "lat": -33.8677965,
+  "lon": 151.2016268,
+  "tags": {
+    "amenity": "restaurant"
+  }
+},
+{
+  "type": "node",
+  "id": 11330498869,
+  "lat": -33.8702492,
+  "lon": 151.2050638,
+  "tags": {
+    "amenity": "restaurant"
+  }
+},
+{
+  "type": "node",
+  "id": 11330510669,
+  "lat": -33.8703775,
+  "lon": 151.2090753,
+  "tags": {
+    "amenity": "restaurant"
+  }
+},
+{
+  "type": "node",
+  "id": 11330523969,
+  "lat": -33.8647088,
+  "lon": 151.2102410,
+  "tags": {
+    "amenity": "restaurant"
+  }
+},
+{
+  "type": "node",
+  "id": 11330532069,
+  "lat": -33.8647931,
+  "lon": 151.2094705,
+  "tags": {
+    "amenity": "restaurant"
+  }
+},
+{
+  "type": "node",
+  "id": 11369749592,
+  "lat": -33.8600907,
+  "lon": 151.2090753,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Graze",
+    "website": "http://grazemca.com.au/"
+  }
+},
+{
+  "type": "node",
+  "id": 11458881769,
+  "lat": -33.8706622,
+  "lon": 151.2025784,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "pizza;seafood",
+    "name": "Cockle Bay Yacht Club"
+  }
+},
+{
+  "type": "node",
+  "id": 11650324470,
+  "lat": -33.8647849,
+  "lon": 151.2169823,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "asian",
+    "level": "1",
+    "name": "Botanic House",
+    "outdoor_seating": "yes",
+    "toilets": "yes",
+    "website": "https://www.botanichouse.com.au",
+    "website:menu": "https://botanichouse.com.au/menu/",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11707470969,
+  "lat": -33.8690076,
+  "lon": 151.2177104,
+  "tags": {
+    "amenity": "restaurant",
+    "full_name": "The Art Gallery Restaurant, Crafted by Matt Moran",
+    "name": "Crafted by Matt Moran",
+    "opening_hours": "Tu, Th-Su 11:30-16:00; We 11:30-16:00, 17:00-22:00",
+    "outdoor_seating": "no",
+    "website": "https://www.craftedbymattmoran.com.au/"
+  }
+},
+{
+  "type": "node",
+  "id": 11715934969,
+  "lat": -33.8650935,
+  "lon": 151.2080764,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "fish;italian;italian_pizza",
+    "email": "eat@belluccicucina.com.au",
+    "name": "Bellucci Cucina",
+    "phone": "+61 2 9252 5325",
+    "website": "https://www.bellucci.com.au/"
+  }
+},
+{
+  "type": "node",
+  "id": 11722749143,
+  "lat": -33.8619047,
+  "lon": 151.2082669,
+  "tags": {
+    "amenity": "restaurant",
+    "is_in": "Jacksons on George",
+    "level": "1",
+    "name": "Bistro George",
+    "website": "https://jacksonsongeorge.com.au"
+  }
+},
+{
+  "type": "node",
+  "id": 11886555174,
+  "lat": -33.8622771,
+  "lon": 151.2089707,
+  "tags": {
+    "addr:street": "Sai Ying Lane",
+    "amenity": "restaurant",
+    "cuisine": "vietnamese",
+    "name": "Eat Fuh",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11886555177,
+  "lat": -33.8622563,
+  "lon": 151.2083943,
+  "tags": {
+    "addr:street": "Ah Toy Lane",
+    "amenity": "restaurant",
+    "cuisine": "chinese",
+    "name": "BoBo Dumplings"
+  }
+},
+{
+  "type": "node",
+  "id": 11886555181,
+  "lat": -33.8623712,
+  "lon": 151.2083202,
+  "tags": {
+    "addr:street": "Ah Toy Lane",
+    "amenity": "restaurant",
+    "cuisine": "japanese",
+    "name": "Dopa",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11886555184,
+  "lat": -33.8622620,
+  "lon": 151.2087662,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "malaysian",
+    "name": "Malay Chinese Noodle Bar",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11886555185,
+  "lat": -33.8623184,
+  "lon": 151.2085078,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "korean",
+    "level": "-1",
+    "name": "Matkim",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11886555187,
+  "lat": -33.8622201,
+  "lon": 151.2084176,
+  "tags": {
+    "addr:street": "Ah Toy Lane",
+    "amenity": "restaurant",
+    "cuisine": "middle_eastern",
+    "name": "Open Sesame",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11886555188,
+  "lat": -33.8621980,
+  "lon": 151.2082971,
+  "tags": {
+    "addr:street": "Ah Toy Lane",
+    "amenity": "restaurant",
+    "cuisine": "sushi",
+    "name": "Sushi Yuzen",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11886555191,
+  "lat": -33.8622382,
+  "lon": 151.2085036,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "ramen",
+    "name": "Yasaka Ramen"
+  }
+},
+{
+  "type": "node",
+  "id": 11991331969,
+  "lat": -33.8701569,
+  "lon": 151.2056454,
+  "tags": {
+    "addr:housenumber": "168",
+    "addr:street": "Clarence Street",
+    "amenity": "restaurant",
+    "cuisine": "italian",
+    "name": "Primi Italian",
+    "website": "https://primiitalian.com.au/"
+  }
+},
+{
+  "type": "node",
+  "id": 12012852139,
+  "lat": -33.8698089,
+  "lon": 151.1974553,
+  "tags": {
+    "addr:housenumber": "86",
+    "addr:street": "Union Street",
+    "addr:suburb": "Pyrmont",
+    "amenity": "restaurant",
+    "cuisine": "thai",
+    "indoor_seating": "yes",
+    "name": "Lemongrass Takrai",
+    "outdoor_seating": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12012852140,
+  "lat": -33.8698185,
+  "lon": 151.1975301,
+  "tags": {
+    "amenity": "restaurant",
+    "cuisine": "pizza",
+    "name": "Darling Pizzeria"
+  }
+},
+{
+  "type": "node",
+  "id": 12254030536,
+  "lat": -33.8705692,
+  "lon": 151.2056923,
+  "tags": {
+    "amenity": "restaurant",
+    "name": "Tao"
+  }
+},
+{
+  "type": "node",
+  "id": 12379482594,
+  "lat": -33.8704166,
+  "lon": 151.2053264,
+  "tags": {
+    "amenity": "restaurant",
+    "brand": "Sushi Sushi",
+    "brand:wikidata": "Q122915060",
+    "cuisine": "sushi",
+    "name": "Sushi Sushi"
+  }
+}
+
+  ]
+}

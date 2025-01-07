@@ -5,14 +5,20 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"math/rand"
 	"net/http"
 	"os"
 	"os/signal"
 	"time"
 
-	"github.com/tongxuanbao/food-delivery/backend/pkg/geo"
+	"github.com/tongxuanbao/food-delivery/backend/internal/app/restaurant"
+	"github.com/tongxuanbao/food-delivery/backend/internal/pkg/geo"
 )
+
+type RateResponse struct {
+	Id       int              `json:"id"`
+	Route    []geo.Coordinate `json:"route"`
+	Position geo.Coordinate   `json:"position"`
+}
 
 func route(w http.ResponseWriter, r *http.Request) {
 	// Set CORS headers to allow all origins. You may want to restrict this to specific origins in a production environment.
@@ -23,33 +29,35 @@ func route(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Cache-Control", "no-cache")
 	w.Header().Set("Connection", "keep-alive")
 
-	list := geo.GetCoordinateList()
+	coordList := geo.GetCoordinateList()
 
-	starting := list[0]
+	list := geo.GetRoute(coordList[0], coordList[1000])
+
+	// fmt.Println(geo.RestaurantList)
+	jsonBytes, err := json.Marshal(restaurant.RestaurantList)
+	if err == nil {
+		fmt.Fprintf(w, "event: restaurant\ndata: %s\n\n", fmt.Sprint(string(jsonBytes)))
+	}
+	w.(http.Flusher).Flush()
+
 	ctx := r.Context()
-	for {
+	for idx, coord := range list {
 		select {
 		case <-ctx.Done():
 			// The client has disconnected, break the loop
 			fmt.Println("Client disconnected, stopping stream.")
 			return
 		default:
-			fmt.Printf("%+v\n", starting)
+			// Response
+			response := RateResponse{Id: 1, Route: list[idx:], Position: coord}
 			// Send out coord
-			jsonBytes, err := json.Marshal(starting)
+			jsonBytes, err := json.Marshal(response)
 			if err != nil {
 				continue
 			}
-			fmt.Fprintf(w, "data: %s\n\n", fmt.Sprint(string(jsonBytes)))
-			time.Sleep(100 * time.Millisecond)
+			fmt.Fprintf(w, "event: test\ndata: %s\n\n", fmt.Sprint(string(jsonBytes)))
+			time.Sleep(1000 * time.Millisecond)
 			w.(http.Flusher).Flush()
-
-			// get a random neighbors
-			neighbors := starting.GetNeighbors()
-			next := neighbors[rand.Intn(len(neighbors))]
-
-			// moving to the random neighbor
-			starting = next
 		}
 	}
 }

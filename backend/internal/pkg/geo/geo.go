@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"math/rand"
 )
 
 //go:embed adjacentListPixel.json
@@ -19,14 +20,13 @@ var adjacentList = make(map[Coordinate][]Coordinate)
 var coordinateList []Coordinate
 
 func (c Coordinate) GetNeighbors() []Coordinate {
-	// Access the adjacentList directly
 	return adjacentList[c]
 }
 
 func init() {
-	var connections [][][2]float64
-
+	fmt.Println("init function ran")
 	// Unmarshal the JSON into the connections variable
+	var connections [][][2]float64
 	err := json.Unmarshal(pixelData, &connections)
 	if err != nil {
 		log.Fatal(err)
@@ -36,8 +36,8 @@ func init() {
 	adjacentList = make(map[Coordinate][]Coordinate)
 	for _, conn := range connections {
 		// Extract two points
-		pointA := Coordinate{X: conn[0][0], Y: conn[0][1]}
-		pointB := Coordinate{X: conn[1][0], Y: conn[1][1]}
+		pointA := Coordinate{X: conn[0][0] * 3.125, Y: conn[0][1] * 3.125}
+		pointB := Coordinate{X: conn[1][0] * 3.125, Y: conn[1][1] * 3.125}
 
 		// Create map of those points
 		if _, exists := adjacentList[pointA]; !exists {
@@ -53,14 +53,39 @@ func init() {
 		adjacentList[pointA] = append(adjacentList[pointA], pointB)
 		adjacentList[pointB] = append(adjacentList[pointB], pointA)
 	}
-
-	// Print the result
-	// fmt.Printf("%+v\n", coordinateList)
-	fmt.Println(len(connections))
 }
 
 func GetAdjacentList() map[Coordinate][]Coordinate {
 	return adjacentList
+}
+
+func GetRandomCoordinate() Coordinate {
+	return coordinateList[rand.Intn(len(coordinateList))]
+}
+
+func visitCoordinate(current Coordinate, end Coordinate, visited map[Coordinate]bool) []Coordinate {
+	visited[current] = true
+
+	if current == end {
+		return []Coordinate{current}
+	}
+
+	for _, neighbor := range current.GetNeighbors() {
+		if visited[neighbor] {
+			continue
+		}
+
+		route := visitCoordinate(neighbor, end, visited)
+		if route != nil {
+			return append([]Coordinate{current}, route...)
+		}
+	}
+
+	return nil
+}
+
+func GetRoute(start Coordinate, end Coordinate) []Coordinate {
+	return visitCoordinate(start, end, make(map[Coordinate]bool))
 }
 
 func GetCoordinateList() []Coordinate {

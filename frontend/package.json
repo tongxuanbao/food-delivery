@@ -10,8 +10,10 @@
     "serve": "vite preview",
     "start": "vite"
   },
-  "prettier":{
-    "plugins": ["prettier-plugin-organize-imports"]
+  "prettier": {
+    "plugins": [
+      "prettier-plugin-organize-imports"
+    ]
   },
   "devDependencies": {
     "@tanstack/router-plugin": "^1.58.4",
@@ -28,7 +30,7 @@
     "@tanstack/router-devtools": "^1.58.3",
     "@turf/turf": "^7.1.0",
     "axios": "^1.7.7",
-    "mapbox-gl": "^3.7.0",
+    "mapbox-gl": "^3.9.1",
     "osmtogeojson": "^3.0.0-beta.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
