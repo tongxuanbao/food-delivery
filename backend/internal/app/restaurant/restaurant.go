@@ -8,6 +8,7 @@ import (
 	"math/rand"
 	"time"
 
+	"github.com/tongxuanbao/food-delivery/backend/internal/pkg/broker"
 	"github.com/tongxuanbao/food-delivery/backend/internal/pkg/geo"
 )
 
@@ -30,45 +31,39 @@ func init() {
 	}
 }
 
-type Service struct {
-	quit chan bool
+type Subscriber interface {
+	Trigger(data string)
 }
 
-func NewRestaurantService() *Service {
-	s := Service{make(chan bool)}
+type Service struct {
+	Broker *broker.Broker
+}
 
+func New() *Service {
+	s := &Service{
+		Broker: broker.New(),
+	}
 	return s
 }
 
-func (s *Service) run() {
-	for {
-		select {
-		case <-s.quit:
-			fmt.Println("finishing task")
-			time.Sleep(time.Second)
-			fmt.Println("task done")
-			s.quit <- true
-			return
-		case <-time.After(time.Second):
-			fmt.Println("running task")
-		}
-	}
+// Add an order to restaurant
+func (s *Service) AddOrder(customerId int, restaurantId int) {
+	fmt.Printf("Restaurant: Add order. customerId: %d, restaurantId: %d\n", customerId, restaurantId)
+	message := fmt.Sprintf("Restaurant is cooking. CustomerId: %d, restaurantId %d", customerId, restaurantId)
+	s.Broker.Publish("restaurant", message)
+	go func() {
+		time.Sleep(time.Duration(rand.Intn(5)+10) * time.Second)
+		s.orderPrepared(customerId, restaurantId)
+	}()
 }
 
-// Add an order to restaurant
-func (s *Service) addOrder(customerId int, restaurantId int) {
-	fmt.Printf("Restaurant is cooking. CustomerId: %d, restaurantId %d\n", customerId, restaurantId)
-	time.Sleep(time.Duration(rand.Intn(3)+2) * time.Second)
-	fmt.Printf("Restaurant cooking is FINISHED. CustomerId: %d, restaurantId %d\n", customerId, restaurantId)
+func (s *Service) orderPrepared(customerId int, restaurantId int) {
+	message := fmt.Sprintf("Restaurant cooking is FINISHED. CustomerId: %d, restaurantId %d", customerId, restaurantId)
+	s.Broker.Publish("restaurant", message)
 }
 
 // Order picked up
 func (s *Service) orderPickedUp(customerId int, restaurantId int) {
 	fmt.Println("Order picked up")
+	s.Broker.Publish("restaurant", "Order picked up")
 }
-
-// Subscribe to all restaurant
-func (s *Service) subscribeEvents(ch chan string) {
-}
-
-//
