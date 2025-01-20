@@ -15,19 +15,35 @@ import (
 // Coordinate is an alias for geo.Coordinate
 type Coordinate = geo.Coordinate
 
+type Restaurant struct {
+	Id         int        `json:"id"`
+	Coordinate Coordinate `json:"coordinate"`
+}
+
+type Event struct {
+	Event      string     `json:"event"`
+	Restaurant Restaurant `json:"restaurant"`
+}
+
 //go:embed restaurants.json
 var restaurantsData []byte
 
-var RestaurantList []Coordinate
+var RestaurantList []Restaurant
 
 func init() {
 	// Unmarshal the JSON into the connections variable
-	err := json.Unmarshal(restaurantsData, &RestaurantList)
+	var listFromJson []Coordinate
+	err := json.Unmarshal(restaurantsData, &listFromJson)
 	if err != nil {
 		log.Fatal(err)
 	}
-	for idx, restaurant := range RestaurantList {
-		RestaurantList[idx] = Coordinate{X: restaurant.X * 3.125, Y: restaurant.Y * 3.125}
+	RestaurantList = make([]Restaurant, len(listFromJson))
+	for idx, restaurant := range listFromJson[30:100] {
+		if idx == 50 {
+			break
+		}
+		coordinate := Coordinate{X: restaurant.X * 3.125, Y: restaurant.Y * 3.125}
+		RestaurantList[idx] = Restaurant{Id: idx, Coordinate: coordinate}
 	}
 }
 
@@ -46,19 +62,54 @@ func New() *Service {
 	return s
 }
 
+func (s *Service) GetRestaurants() []Restaurant {
+	return RestaurantList
+}
+
+func (s *Service) getRestaurant(id int) Restaurant {
+	return s.GetRestaurants()[id]
+}
+
+func (s *Service) constructEventMessage(eventName string, restaurantID int) string {
+	// Get restaurant
+	restaurant := s.getRestaurant(restaurantID)
+
+	// Construct event
+	e := Event{Event: eventName, Restaurant: restaurant}
+
+	// Turn event into json string
+	jsonBytes, err := json.Marshal(e)
+	if err != nil {
+		fmt.Printf("%s RESTAURANT Generating %s Got error: %v \n", time.Now().Format("2006-01-02 15:04:05"), eventName, err)
+		return ""
+	}
+	message := fmt.Sprint(string(jsonBytes))
+
+	return message
+}
+
 // Add an order to restaurant
-func (s *Service) AddOrder(customerId int, restaurantId int) {
-	fmt.Printf("Restaurant: Add order. customerId: %d, restaurantId: %d\n", customerId, restaurantId)
-	message := fmt.Sprintf("Restaurant is cooking. CustomerId: %d, restaurantId %d", customerId, restaurantId)
+func (s *Service) AddOrder(customerID int, restaurantID int) {
+	// Log
+	fmt.Printf("%s RESTAURANT AddOrder(customerID: %d, restaurantID: %d) \n", time.Now().Format("2006-01-02 15:04:05"), customerID, restaurantID)
+
+	// Publish action
+	message := s.constructEventMessage("order_received", restaurantID)
 	s.Broker.Publish("restaurant", message)
+
+	// Schedule prepared action
 	go func() {
-		time.Sleep(time.Duration(rand.Intn(5)+10) * time.Second)
-		s.orderPrepared(customerId, restaurantId)
+		time.Sleep(time.Duration(rand.Intn(5)) * time.Second)
+		s.orderPrepared(customerID, restaurantID)
 	}()
 }
 
-func (s *Service) orderPrepared(customerId int, restaurantId int) {
-	message := fmt.Sprintf("Restaurant cooking is FINISHED. CustomerId: %d, restaurantId %d", customerId, restaurantId)
+func (s *Service) orderPrepared(customerID int, restaurantID int) {
+	// Log
+	fmt.Printf("%s RESTAURANT orderPrepared(customerID: %d, restaurantID: %d) \n", time.Now().Format("2006-01-02 15:04:05"), customerID, restaurantID)
+
+	// Publish action
+	message := s.constructEventMessage("order_prepared", restaurantID)
 	s.Broker.Publish("restaurant", message)
 }
 
