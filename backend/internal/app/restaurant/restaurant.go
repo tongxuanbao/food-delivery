@@ -37,13 +37,19 @@ func init() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	RestaurantList = make([]Restaurant, len(listFromJson))
-	for idx, restaurant := range listFromJson[30:100] {
-		if idx == 50 {
+	RestaurantList = make([]Restaurant, 0)
+	for idx, restaurant := range listFromJson {
+		if len(RestaurantList) == 10 {
 			break
 		}
+		if restaurant.X < 0 || restaurant.X > 1920 {
+			continue
+		}
+		if restaurant.Y < 0 || restaurant.Y > 1080 {
+			continue
+		}
 		coordinate := Coordinate{X: restaurant.X * 3.125, Y: restaurant.Y * 3.125}
-		RestaurantList[idx] = Restaurant{Id: idx, Coordinate: coordinate}
+		RestaurantList = append(RestaurantList, Restaurant{Id: idx, Coordinate: coordinate})
 	}
 }
 
@@ -99,7 +105,7 @@ func (s *Service) AddOrder(customerID int, restaurantID int) {
 
 	// Schedule prepared action
 	go func() {
-		time.Sleep(time.Duration(rand.Intn(5)) * time.Second)
+		time.Sleep(time.Duration(rand.Intn(5)+5) * time.Second)
 		s.orderPrepared(customerID, restaurantID)
 	}()
 }

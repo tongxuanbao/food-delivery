@@ -16,6 +16,8 @@ type RestaurantResponse = {
   restaurant: Coordinate[];
 };
 
+const RESTAURANT_SIZE = 150;
+
 const MapComponent = () => {
   const mapRef = useRef<HTMLImageElement | null>(null);
   const redDotRef = useRef<HTMLImageElement | null>(null);
@@ -110,8 +112,8 @@ const MapComponent = () => {
         restaurant.status === "red" ? redDotRef.current : greenDotRef.current,
         restaurant.coordinate.x,
         restaurant.coordinate.y,
-        70,
-        70,
+        RESTAURANT_SIZE,
+        RESTAURANT_SIZE,
       );
     });
   }
