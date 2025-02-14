@@ -53,18 +53,12 @@ func init() {
 	}
 }
 
-type Subscriber interface {
-	Trigger(data string)
-}
-
 type Service struct {
 	Broker *broker.Broker
 }
 
 func New() *Service {
-	s := &Service{
-		Broker: broker.New(),
-	}
+	s := &Service{Broker: broker.New()}
 	return s
 }
 
@@ -120,7 +114,22 @@ func (s *Service) orderPrepared(customerID int, restaurantID int) {
 }
 
 // Order picked up
-func (s *Service) orderPickedUp(customerId int, restaurantId int) {
-	fmt.Println("Order picked up")
+func (s *Service) OrderPickedUp(customerID int, restaurantID int) {
+	fmt.Printf("Order picked up. customerID: %d, restaurantID: %d\n", customerID, restaurantID)
 	s.Broker.Publish("restaurant", "Order picked up")
+}
+
+func (s *Service) GetClosestRestaurant(coord Coordinate) *Restaurant {
+	result := RestaurantList[0]
+	currentDistance := result.Coordinate.DistanceTo(coord)
+
+	for idx, restaurant := range RestaurantList {
+		distance := restaurant.Coordinate.DistanceTo(coord)
+		if distance < currentDistance {
+			result = RestaurantList[idx]
+			currentDistance = distance
+		}
+	}
+
+	return &result
 }

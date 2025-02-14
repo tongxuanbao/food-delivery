@@ -8,6 +8,8 @@ import (
 	"os/signal"
 	"time"
 
+	"github.com/tongxuanbao/food-delivery/backend/internal/app/customer"
+	"github.com/tongxuanbao/food-delivery/backend/internal/app/driver"
 	"github.com/tongxuanbao/food-delivery/backend/internal/app/restaurant"
 	"github.com/tongxuanbao/food-delivery/backend/internal/app/simulator"
 	"github.com/tongxuanbao/food-delivery/backend/internal/pkg/geo"
@@ -19,11 +21,15 @@ type RateResponse struct {
 	Position geo.Coordinate   `json:"position"`
 }
 
-func NewServer(restaurantService *restaurant.Service) http.Handler {
+func NewServer(
+	restaurantService *restaurant.Service,
+	driverService *driver.Service,
+	customerService *customer.Service,
+) http.Handler {
 	mux := http.NewServeMux()
 
 	// Add routes
-	addRoutes(mux, restaurantService)
+	addRoutes(mux, restaurantService, driverService, customerService)
 
 	// Middlewares
 	var handler http.Handler = mux
@@ -34,7 +40,10 @@ func NewServer(restaurantService *restaurant.Service) http.Handler {
 func main() {
 	// Initialize services
 	restaurantService := restaurant.New()
-	serverHandler := NewServer(restaurantService)
+	driverService := driver.New()
+	customerService := customer.New()
+
+	serverHandler := NewServer(restaurantService, driverService, customerService)
 
 	server := &http.Server{
 		Addr:    ":8080",
@@ -50,7 +59,7 @@ func main() {
 		}
 	}()
 
-	simulatorService := simulator.New(restaurantService)
+	simulatorService := simulator.New(restaurantService, driverService)
 	go simulatorService.Simulate()
 
 	// trap sigterm or interrupt and gracefully shutdown the server

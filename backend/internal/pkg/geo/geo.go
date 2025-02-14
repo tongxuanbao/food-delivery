@@ -3,8 +3,8 @@ package geo
 import (
 	_ "embed"
 	"encoding/json"
-	"fmt"
 	"log"
+	"math"
 	"math/rand"
 )
 
@@ -24,7 +24,6 @@ func (c Coordinate) GetNeighbors() []Coordinate {
 }
 
 func init() {
-	fmt.Println("init function ran")
 	// Unmarshal the JSON into the connections variable
 	var connections [][][2]float64
 	err := json.Unmarshal(pixelData, &connections)
@@ -90,4 +89,12 @@ func GetRoute(start Coordinate, end Coordinate) []Coordinate {
 
 func GetCoordinateList() []Coordinate {
 	return coordinateList
+}
+
+func (c *Coordinate) DistanceTo(coord Coordinate) float64 {
+	x := math.Abs(c.X - coord.X)
+	y := math.Abs(c.Y - coord.Y)
+
+	return x*x + y*y
+
 }

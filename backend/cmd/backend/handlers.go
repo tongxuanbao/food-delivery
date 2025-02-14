@@ -6,11 +6,19 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/tongxuanbao/food-delivery/backend/internal/app/customer"
+	"github.com/tongxuanbao/food-delivery/backend/internal/app/driver"
 	"github.com/tongxuanbao/food-delivery/backend/internal/app/restaurant"
 )
 
+type InitialMessage struct {
+	Restaurants []restaurant.Restaurant `json:"restaurants"`
+	Drivers     []driver.Driver         `json:"drivers"`
+	Customers   []customer.Customer     `json:"customers"`
+}
+
 // "/route"
-func handleRoute(restaurantService *restaurant.Service) func(http.ResponseWriter, *http.Request) {
+func handleRoute(restaurantService *restaurant.Service, driverService *driver.Service, customerService *customer.Service) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		// Set CORS headers to allow all origins. You may want to restrict this to specific origins in a production environment.
 		w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -26,7 +34,13 @@ func handleRoute(restaurantService *restaurant.Service) func(http.ResponseWriter
 		fmt.Printf("%s [%s] /route CONNECTED\n", time.Now().Format("2006-01-02 15:04:05"), connectionID)
 
 		// Send initial restaurant data
-		jsonBytes, err := json.Marshal(restaurant.RestaurantList)
+		driverService.SetDrivers(10)
+		initialMessage := InitialMessage{
+			Restaurants: restaurantService.GetRestaurants(),
+			Drivers:     driverService.Drivers,
+			Customers:   customerService.GetCustomers(),
+		}
+		jsonBytes, err := json.Marshal(initialMessage)
 		if err == nil {
 			fmt.Fprintf(w, "event: initial\ndata: %s\n\n", fmt.Sprint(string(jsonBytes)))
 		}
@@ -34,6 +48,8 @@ func handleRoute(restaurantService *restaurant.Service) func(http.ResponseWriter
 
 		// Subscribe to services
 		restaurantSubscriber := restaurantService.Broker.Subscribe("restaurant")
+		driverSubscriber := driverService.Broker.Subscribe("driver")
+		// customerSubscriber := customerService.Broker.Subscribe("customer")
 
 		// Listen for events
 		for {
@@ -46,7 +62,11 @@ func handleRoute(restaurantService *restaurant.Service) func(http.ResponseWriter
 				// Send data
 				fmt.Fprintf(w, "event: restaurant\ndata: %s\n\n", msg)
 				w.(http.Flusher).Flush()
+			case msg := <-driverSubscriber.Channel:
+				fmt.Fprintf(w, "event: driver\ndata: %s\n\n", msg)
+				w.(http.Flusher).Flush()
 			case <-restaurantSubscriber.Unsubscribe:
+			case <-driverSubscriber.Unsubscribe:
 				fmt.Println("Unsubscribed.")
 				return
 			case <-ctx.Done():
@@ -55,5 +75,34 @@ func handleRoute(restaurantService *restaurant.Service) func(http.ResponseWriter
 				return
 			}
 		}
+	}
+}
+
+type DriversRequestBody struct {
+	NumberOfDrivers int `json:"numberOfDrivers"`
+}
+
+// "POST /drivers"
+func handleDrivers(driverService *driver.Service) func(http.ResponseWriter, *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req DriversRequestBody
+		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+			errMessage := fmt.Sprintf("Invalid JSON: %v", err)
+			http.Error(w, errMessage, http.StatusBadRequest)
+			return
+		}
+		if req.NumberOfDrivers < 1 {
+			http.Error(w, "numDrivers must be greater than 0", http.StatusBadRequest)
+			return
+		}
+
+		driverService.SetDrivers(req.NumberOfDrivers)
+
+		response := map[string]any{
+			"message":    "Number of drivers updated",
+			"numDrivers": req.NumberOfDrivers,
+		}
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(response)
 	}
 }

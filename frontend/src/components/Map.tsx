@@ -11,17 +11,38 @@ type Restaurant = {
   coordinate: Coordinate;
 };
 
-type RestaurantResponse = {
-  event: String;
-  restaurant: Coordinate[];
+type Driver = {
+  id: Number;
+  coordinate: Coordinate;
+  route: Array<Coordinate>;
+  speed: Number;
+  status: Number;
+};
+
+type Customer = {
+  id: Number;
+  coordinate: Coordinate;
+};
+
+type InitialResponse = {
+  restaurants: Restaurant[];
+  drivers: Driver[];
+  customers: Customer[];
 };
 
 const RESTAURANT_SIZE = 150;
 
 const MapComponent = () => {
+  const customerRef = useRef<HTMLImageElement | null>(null);
+  const carRef = useRef<HTMLImageElement | null>(null);
   const mapRef = useRef<HTMLImageElement | null>(null);
   const redDotRef = useRef<HTMLImageElement | null>(null);
   const greenDotRef = useRef<HTMLImageElement | null>(null);
+
+  /* Data */
+  const [restaurants, setRestaurants] = useState<Array<Restaurant>>([]);
+  const [drivers, setDrivers] = useState<Array<Driver>>([]);
+  const [customers, setCustomers] = useState<Array<Customer>>([]);
 
   /* Canvas */
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -42,10 +63,6 @@ const MapComponent = () => {
       context?.drawImage(mapRef.current, 0, (6000 - context.canvas.width) / 2);
   }, []);
 
-  /* Data */
-  const [data, setData] = useState<Coordinate>({});
-  const [restaurants, setRestaurants] = useState<Array<Restaurant>>([]);
-
   useEffect(() => {
     // opening a connection to the server to begin receiving events from it
     const eventSource = new EventSource("http://localhost:8080/route");
@@ -57,12 +74,15 @@ const MapComponent = () => {
     };
 
     eventSource.addEventListener("initial", (event) => {
-      const restaurants = JSON.parse(event.data) as Restaurant[];
-      const r = restaurants.map((restaurant) => ({
+      const data = JSON.parse(event.data) as InitialResponse;
+      console.log(data);
+      const r = data.restaurants.map((restaurant) => ({
         ...restaurant,
         status: "red",
       }));
       setRestaurants(r);
+      setDrivers(data.drivers);
+      setCustomers(data.customers);
     });
 
     eventSource.addEventListener("restaurant", (event) => {
@@ -81,6 +101,14 @@ const MapComponent = () => {
           }
         });
       });
+    });
+
+    eventSource.addEventListener("driver", (event) => {
+      const d = JSON.parse(event.data);
+      console.log(d);
+      if (d.event === "init_drivers") {
+        setDrivers(d.drivers);
+      }
     });
 
     // terminating the connection on component unmount
@@ -116,11 +144,23 @@ const MapComponent = () => {
         RESTAURANT_SIZE,
       );
     });
+
+    drivers.forEach((driver) => {
+      context?.drawImage(
+        customerRef.current,
+        driver.coordinate.x,
+        driver.coordinate.y,
+        150,
+        150,
+      );
+    });
   }
 
   return (
     <div className="flex-grow relative overflow-hidden rounded-xl border border-dashed border-gray-400">
       <canvas ref={canvasRef} className="h-full w-full"></canvas>
+      <img src="customer.png" ref={customerRef} className="hidden" />
+      <img src="car.svg" ref={carRef} className="hidden" />
       <img src="map2.png" ref={mapRef} className="hidden" />
       <img src="RedDot.svg" ref={redDotRef} className="hidden" />
       <img src="GreenDot.svg" ref={greenDotRef} className="hidden" />
