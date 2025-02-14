@@ -30,9 +30,6 @@ func init() {
 		log.Fatal(err)
 	}
 	for idx, customer := range listFromJson {
-		if len(CustomerList) == 10 {
-			break
-		}
 		if customer.X < 0 || customer.X > 1920 {
 			continue
 		}

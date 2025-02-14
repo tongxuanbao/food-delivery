@@ -57,7 +57,6 @@ func handleRoute(restaurantService *restaurant.Service, driverService *driver.Se
 			case msg, ok := <-restaurantSubscriber.Channel:
 				if !ok {
 					fmt.Println("Subscriber channel closed.")
-					return
 				}
 				// Send data
 				fmt.Fprintf(w, "event: restaurant\ndata: %s\n\n", msg)
@@ -65,13 +64,10 @@ func handleRoute(restaurantService *restaurant.Service, driverService *driver.Se
 			case msg := <-driverSubscriber.Channel:
 				fmt.Fprintf(w, "event: driver\ndata: %s\n\n", msg)
 				w.(http.Flusher).Flush()
-			case <-restaurantSubscriber.Unsubscribe:
-			case <-driverSubscriber.Unsubscribe:
-				fmt.Println("Unsubscribed.")
-				return
 			case <-ctx.Done():
 				fmt.Printf("%s [%s] /route DISCONNECTED AND UNSUBSCRIBED\n", time.Now().Format("2006-01-02 15:04:05"), connectionID)
 				restaurantService.Broker.Unsubscribe("restaurant", restaurantSubscriber)
+				driverService.Broker.Unsubscribe("driver", driverSubscriber)
 				return
 			}
 		}

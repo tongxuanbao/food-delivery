@@ -39,9 +39,6 @@ func init() {
 	}
 	RestaurantList = make([]Restaurant, 0)
 	for idx, restaurant := range listFromJson {
-		if len(RestaurantList) == 10 {
-			break
-		}
 		if restaurant.X < 0 || restaurant.X > 1920 {
 			continue
 		}
@@ -80,7 +77,7 @@ func (s *Service) constructEventMessage(eventName string, restaurantID int) stri
 	// Turn event into json string
 	jsonBytes, err := json.Marshal(e)
 	if err != nil {
-		fmt.Printf("%s RESTAURANT Generating %s Got error: %v \n", time.Now().Format("2006-01-02 15:04:05"), eventName, err)
+		// fmt.Printf("%s RESTAURANT Generating %s Got error: %v \n", time.Now().Format("2006-01-02 15:04:05"), eventName, err)
 		return ""
 	}
 	message := fmt.Sprint(string(jsonBytes))
@@ -91,7 +88,7 @@ func (s *Service) constructEventMessage(eventName string, restaurantID int) stri
 // Add an order to restaurant
 func (s *Service) AddOrder(customerID int, restaurantID int) {
 	// Log
-	fmt.Printf("%s RESTAURANT AddOrder(customerID: %d, restaurantID: %d) \n", time.Now().Format("2006-01-02 15:04:05"), customerID, restaurantID)
+	// fmt.Printf("%s RESTAURANT AddOrder(customerID: %d, restaurantID: %d) \n", time.Now().Format("2006-01-02 15:04:05"), customerID, restaurantID)
 
 	// Publish action
 	message := s.constructEventMessage("order_received", restaurantID)
@@ -106,7 +103,7 @@ func (s *Service) AddOrder(customerID int, restaurantID int) {
 
 func (s *Service) orderPrepared(customerID int, restaurantID int) {
 	// Log
-	fmt.Printf("%s RESTAURANT orderPrepared(customerID: %d, restaurantID: %d) \n", time.Now().Format("2006-01-02 15:04:05"), customerID, restaurantID)
+	// fmt.Printf("%s RESTAURANT orderPrepared(customerID: %d, restaurantID: %d) \n", time.Now().Format("2006-01-02 15:04:05"), customerID, restaurantID)
 
 	// Publish action
 	message := s.constructEventMessage("order_prepared", restaurantID)
@@ -115,7 +112,7 @@ func (s *Service) orderPrepared(customerID int, restaurantID int) {
 
 // Order picked up
 func (s *Service) OrderPickedUp(customerID int, restaurantID int) {
-	fmt.Printf("Order picked up. customerID: %d, restaurantID: %d\n", customerID, restaurantID)
+	// fmt.Printf("Order picked up. customerID: %d, restaurantID: %d\n", customerID, restaurantID)
 	s.Broker.Publish("restaurant", "Order picked up")
 }
 

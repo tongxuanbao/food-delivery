@@ -46,32 +46,54 @@ const MapComponent = () => {
 
   /* Canvas */
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  useEffect(() => {
+  function draw() {
     if (!canvasRef.current) return;
 
     const canvas = canvasRef.current;
     const context = canvasRef.current.getContext("2d");
     const { offsetWidth: width, offsetHeight: height } = canvas;
-
     if (!context) return;
 
     const zoomLevel = Math.min(6000 / width, 3375 / height);
     context.canvas.width = width * zoomLevel;
     context.canvas.height = height * zoomLevel;
 
-    if (mapRef.current)
-      context?.drawImage(mapRef.current, 0, (6000 - context.canvas.width) / 2);
-  }, []);
+    if (mapRef.current) context?.drawImage(mapRef.current, 0, 0);
+
+    restaurants.forEach((restaurant) => {
+      context?.drawImage(
+        restaurant.status === "red" ? redDotRef.current : greenDotRef.current,
+        restaurant.coordinate.x - RESTAURANT_SIZE / 2,
+        restaurant.coordinate.y - RESTAURANT_SIZE / 2,
+        RESTAURANT_SIZE,
+        RESTAURANT_SIZE,
+      );
+    });
+
+    drivers.forEach((driver) => {
+      context?.drawImage(
+        carRef.current,
+        driver.coordinate.x - 50,
+        driver.coordinate.y - 50,
+        100,
+        100,
+      );
+    });
+
+    customers.forEach((customer) => {
+      context?.drawImage(
+        customerRef.current,
+        customer.coordinate.x - 50,
+        customer.coordinate.y - 50,
+        100,
+        100,
+      );
+    });
+  }
 
   useEffect(() => {
     // opening a connection to the server to begin receiving events from it
     const eventSource = new EventSource("http://localhost:8080/route");
-
-    // attaching a handler to receive message events
-    eventSource.onmessage = (event) => {
-      const d = JSON.parse(event.data);
-      setData(d);
-    };
 
     eventSource.addEventListener("initial", (event) => {
       const data = JSON.parse(event.data) as InitialResponse;
@@ -117,44 +139,7 @@ const MapComponent = () => {
     };
   }, []);
 
-  useEffect(draw, [restaurants]);
-
-  function draw() {
-    if (!canvasRef.current) return;
-
-    const canvas = canvasRef.current;
-    const context = canvasRef.current.getContext("2d");
-    const { offsetWidth: width, offsetHeight: height } = canvas;
-
-    if (!context) return;
-
-    const zoomLevel = Math.min(6000 / width, 3375 / height);
-    context.canvas.width = width * zoomLevel;
-    context.canvas.height = height * zoomLevel;
-
-    if (mapRef.current) context?.drawImage(mapRef.current, 0, 0);
-
-    restaurants.forEach((restaurant) => {
-      if (restaurant.status == "ref") console.log("YESSS");
-      context?.drawImage(
-        restaurant.status === "red" ? redDotRef.current : greenDotRef.current,
-        restaurant.coordinate.x,
-        restaurant.coordinate.y,
-        RESTAURANT_SIZE,
-        RESTAURANT_SIZE,
-      );
-    });
-
-    drivers.forEach((driver) => {
-      context?.drawImage(
-        customerRef.current,
-        driver.coordinate.x,
-        driver.coordinate.y,
-        150,
-        150,
-      );
-    });
-  }
+  useEffect(draw, [restaurants, drivers, customers]);
 
   return (
     <div className="flex-grow relative overflow-hidden rounded-xl border border-dashed border-gray-400">
