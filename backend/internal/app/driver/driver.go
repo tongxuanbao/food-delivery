@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math/rand"
 	"sync"
+	"time"
 
 	"github.com/tongxuanbao/food-delivery/backend/internal/pkg/broker"
 	"github.com/tongxuanbao/food-delivery/backend/internal/pkg/geo"
@@ -49,9 +50,11 @@ func (s *Service) generateRandomDriver() Driver {
 	return Driver{Coordinate: coordinate, Speed: speed}
 }
 
-func (s *Service) setNumberOfDrivers(numOfDrivers int) {
+func (s *Service) SetDrivers(numOfDrivers int) {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
+
+	fmt.Printf("%s DRIVER SetDrivers(%d) from %d \n", time.Now().Format("2006-01-02 15:04:05"), numOfDrivers, len(s.Drivers))
 
 	if numOfDrivers > len(s.Drivers) {
 		for range numOfDrivers - len(s.Drivers) {
@@ -62,11 +65,6 @@ func (s *Service) setNumberOfDrivers(numOfDrivers int) {
 	} else {
 		s.Drivers = s.Drivers[:numOfDrivers]
 	}
-}
-
-func (s *Service) SetDrivers(numOfDrivers int) {
-	// fmt.Printf("%s DRIVER SetDrivers(%d) from %d \n", time.Now().Format("2006-01-02 15:04:05"), numOfDrivers, len(s.Drivers))
-	s.setNumberOfDrivers(numOfDrivers)
 
 	jsonBytes, err := json.Marshal(DriverInitMessage{Event: "init_drivers", Drivers: s.Drivers})
 	if err == nil {

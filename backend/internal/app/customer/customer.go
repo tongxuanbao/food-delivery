@@ -3,7 +3,10 @@ package customer
 import (
 	_ "embed"
 	"encoding/json"
+	"fmt"
 	"log"
+	"sync"
+	"time"
 
 	"github.com/tongxuanbao/food-delivery/backend/internal/pkg/broker"
 	"github.com/tongxuanbao/food-delivery/backend/internal/pkg/geo"
@@ -21,6 +24,11 @@ type Customer struct {
 }
 
 var CustomerList []Customer
+
+type CustomerInitMessage struct {
+	Event     string     `json:"event"`
+	Customers []Customer `json:"customers"`
+}
 
 func init() {
 	// Unmarshal the JSON into the connections variable
@@ -42,7 +50,9 @@ func init() {
 }
 
 type Service struct {
-	Broker *broker.Broker
+	mutex     sync.Mutex
+	Broker    *broker.Broker
+	Customers []Customer
 }
 
 func New() *Service {
@@ -52,4 +62,19 @@ func New() *Service {
 
 func (s *Service) GetCustomers() []Customer {
 	return CustomerList
+}
+
+func (s *Service) SetCustomers(numOfCustomers int) {
+	s.mutex.Lock()
+	defer s.mutex.Unlock()
+
+	fmt.Printf("%s DRIVER SetDrivers(%d) from %d \n", time.Now().Format("2006-01-02 15:04:05"), numOfCustomers, len(s.Customers))
+
+	s.Customers = CustomerList[:numOfCustomers]
+
+	jsonBytes, err := json.Marshal(CustomerInitMessage{Event: "init_customer", Customers: s.Customers})
+	if err == nil {
+		message := fmt.Sprint(string(jsonBytes))
+		s.Broker.Publish("driver", message)
+	}
 }
