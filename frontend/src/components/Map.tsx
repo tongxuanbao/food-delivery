@@ -30,10 +30,38 @@ type InitialResponse = {
   customers: Customer[];
 };
 
-const RESTAURANT_SIZE = 150;
+const ICON_SIZE = 130;
+
+// Hook
+function useWindowSize() {
+  // Initialize state with undefined width/height so server and client renders match
+  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+  const [windowSize, setWindowSize] = useState({
+    width: undefined,
+    height: undefined,
+  });
+  useEffect(() => {
+    // Handler to call on window resize
+    function handleResize() {
+      // Set window width/height to state
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+    // Call handler right away so state gets updated with initial window size
+    handleResize();
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []); // Empty array ensures that effect is only run on mount
+  return windowSize;
+}
 
 const MapComponent = () => {
   const customerRef = useRef<HTMLImageElement | null>(null);
+  const restaurantRef = useRef<HTMLImageElement | null>(null);
   const carRef = useRef<HTMLImageElement | null>(null);
   const mapRef = useRef<HTMLImageElement | null>(null);
   const redDotRef = useRef<HTMLImageElement | null>(null);
@@ -57,16 +85,17 @@ const MapComponent = () => {
     const zoomLevel = Math.min(6000 / width, 3375 / height);
     context.canvas.width = width * zoomLevel;
     context.canvas.height = height * zoomLevel;
+    context.imageSmoothingEnabled = false;
 
     if (mapRef.current) context?.drawImage(mapRef.current, 0, 0);
 
     restaurants.forEach((restaurant) => {
       context?.drawImage(
-        restaurant.status === "red" ? redDotRef.current : greenDotRef.current,
-        restaurant.coordinate.x - RESTAURANT_SIZE / 2,
-        restaurant.coordinate.y - RESTAURANT_SIZE / 2,
-        RESTAURANT_SIZE,
-        RESTAURANT_SIZE,
+        restaurantRef.current,
+        restaurant.coordinate.x - Math.round(ICON_SIZE / 2),
+        restaurant.coordinate.y - ICON_SIZE,
+        ICON_SIZE,
+        ICON_SIZE,
       );
     });
 
@@ -83,10 +112,10 @@ const MapComponent = () => {
     customers.forEach((customer) => {
       context?.drawImage(
         customerRef.current,
-        customer.coordinate.x - 50,
-        customer.coordinate.y - 50,
-        100,
-        100,
+        customer.coordinate.x - Math.round(ICON_SIZE / 2),
+        customer.coordinate.y - Math.round(ICON_SIZE / 2),
+        ICON_SIZE,
+        ICON_SIZE,
       );
     });
   }
@@ -97,7 +126,7 @@ const MapComponent = () => {
 
     eventSource.addEventListener("initial", (event) => {
       const data = JSON.parse(event.data) as InitialResponse;
-      console.log(data);
+      console.log("initial", data);
       const r = data.restaurants.map((restaurant) => ({
         ...restaurant,
         status: "red",
@@ -105,29 +134,35 @@ const MapComponent = () => {
       setRestaurants(r);
       setDrivers(data.drivers);
       setCustomers(data.customers);
+      console.log(data.restaurants.map((restaurant) => restaurant.coordinate));
+      // console.log(data.customers.map((restaurant) => restaurant.coordinate));
     });
 
     eventSource.addEventListener("restaurant", (event) => {
       const d = JSON.parse(event.data);
-      console.log(d);
-      setRestaurants((restaurants) => {
-        const restaurant = d.restaurant;
-        return restaurants.map((r) => {
-          if (r.id === restaurant.id) {
-            return {
-              ...r,
-              status: d.event === "order_prepared" ? "green" : "red",
-            };
-          } else {
-            return r;
-          }
+      console.log("restaurant", d);
+      if (d.event === "init_restaurants") {
+        setRestaurants(d.restaurants);
+      } else {
+        setRestaurants((restaurants) => {
+          const restaurant = d.restaurant;
+          return restaurants.map((r) => {
+            if (r.id === restaurant.id) {
+              return {
+                ...r,
+                status: d.event === "order_prepared" ? "green" : "red",
+              };
+            } else {
+              return r;
+            }
+          });
         });
-      });
+      }
     });
 
     eventSource.addEventListener("driver", (event) => {
       const d = JSON.parse(event.data);
-      console.log(d);
+      console.log("driver", d);
       if (d.event === "init_drivers") {
         setDrivers(d.drivers);
       }
@@ -139,16 +174,29 @@ const MapComponent = () => {
     };
   }, []);
 
-  useEffect(draw, [restaurants, drivers, customers]);
+  useEffect(() => {
+    requestAnimationFrame(draw);
+    return;
+  }, [restaurants, drivers, customers]);
+
+  useEffect(() => {
+    // Handler to call on window resize
+    const handler = () => requestAnimationFrame(draw);
+    // Add event listener
+    window.addEventListener("resize", handler);
+    // Call handler right away so state gets updated with initial window size
+    handler();
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", handler);
+  }, []); // Empty array ensures that effect is only run on mount
 
   return (
     <div className="flex-grow relative overflow-hidden rounded-xl border border-dashed border-gray-400">
       <canvas ref={canvasRef} className="h-full w-full"></canvas>
-      <img src="customer.png" ref={customerRef} className="hidden" />
+      <img src="home.svg" ref={customerRef} className="hidden" />
       <img src="car.svg" ref={carRef} className="hidden" />
-      <img src="map2.png" ref={mapRef} className="hidden" />
-      <img src="RedDot.svg" ref={redDotRef} className="hidden" />
-      <img src="GreenDot.svg" ref={greenDotRef} className="hidden" />
+      <img src="map.png" ref={mapRef} className="hidden" />
+      <img src="restaurant.svg" ref={restaurantRef} className="hidden" />
     </div>
   );
 };

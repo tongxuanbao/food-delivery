@@ -21,11 +21,12 @@ const (
 type Coordinate = geo.Coordinate
 
 type Driver struct {
-	ID         int          `json:"id"`
-	Coordinate Coordinate   `json:"coordinate"`
-	Route      []Coordinate `json:"route"`
-	Speed      int          `json:"speed"`
-	Status     int          `json:"status"`
+	ID              int          `json:"id"`
+	Coordinate      Coordinate   `json:"coordinate"`
+	Route           []Coordinate `json:"route"`
+	CurrentPosition int          `json:"currentPosition"`
+	Speed           int          `json:"speed"`
+	Status          int          `json:"status"`
 }
 
 type Service struct {

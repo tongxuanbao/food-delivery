@@ -15,5 +15,5 @@ func addRoutes(
 	customerService *customer.Service,
 ) {
 	mux.HandleFunc("/route", handleRoute(restaurantService, driverService, customerService))
-	mux.HandleFunc("POST /drivers", handleDrivers(driverService))
+	mux.HandleFunc("POST /customers", handleCustomers(restaurantService, driverService, customerService))
 }

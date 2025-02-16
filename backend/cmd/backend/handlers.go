@@ -34,11 +34,13 @@ func handleRoute(restaurantService *restaurant.Service, driverService *driver.Se
 		fmt.Printf("%s [%s] /route CONNECTED\n", time.Now().Format("2006-01-02 15:04:05"), connectionID)
 
 		// Send initial restaurant data
-		driverService.SetDrivers(10)
+		restaurantService.SetRestaurants(100)
+		driverService.SetDrivers(1)
+		customerService.SetCustomers(100)
 		initialMessage := InitialMessage{
-			Restaurants: restaurantService.GetRestaurants(),
+			Restaurants: restaurantService.Restaurants,
 			Drivers:     driverService.Drivers,
-			Customers:   customerService.GetCustomers(),
+			Customers:   customerService.Customers,
 		}
 		jsonBytes, err := json.Marshal(initialMessage)
 		if err == nil {
@@ -74,29 +76,31 @@ func handleRoute(restaurantService *restaurant.Service, driverService *driver.Se
 	}
 }
 
-type DriversRequestBody struct {
-	NumberOfDrivers int `json:"numberOfDrivers"`
+type CustomersRequestBody struct {
+	NumberOfCustomers int `json:"numberOfCustomers"`
 }
 
 // "POST /drivers"
-func handleDrivers(driverService *driver.Service) func(http.ResponseWriter, *http.Request) {
+func handleCustomers(restaurantService *restaurant.Service, driverService *driver.Service, customerService *customer.Service) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req DriversRequestBody
+		var req CustomersRequestBody
 		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 			errMessage := fmt.Sprintf("Invalid JSON: %v", err)
 			http.Error(w, errMessage, http.StatusBadRequest)
 			return
 		}
-		if req.NumberOfDrivers < 1 {
-			http.Error(w, "numDrivers must be greater than 0", http.StatusBadRequest)
+		if req.NumberOfCustomers < 1 {
+			http.Error(w, "numberOfCustomers must be greater than 0", http.StatusBadRequest)
 			return
 		}
 
-		driverService.SetDrivers(req.NumberOfDrivers)
+		restaurantService.SetRestaurants(req.NumberOfCustomers)
+		driverService.SetDrivers(req.NumberOfCustomers)
+		customerService.SetCustomers(req.NumberOfCustomers)
 
 		response := map[string]any{
-			"message":    "Number of drivers updated",
-			"numDrivers": req.NumberOfDrivers,
+			"message":    "Number of customers has updated",
+			"numDrivers": req.NumberOfCustomers,
 		}
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(response)

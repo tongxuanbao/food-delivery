@@ -68,13 +68,13 @@ func (s *Service) SetCustomers(numOfCustomers int) {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
-	fmt.Printf("%s DRIVER SetDrivers(%d) from %d \n", time.Now().Format("2006-01-02 15:04:05"), numOfCustomers, len(s.Customers))
+	fmt.Printf("%s CUSTOMER SetCustomers(%d) from %d \n", time.Now().Format("2006-01-02 15:04:05"), numOfCustomers, len(s.Customers))
 
 	s.Customers = CustomerList[:numOfCustomers]
 
-	jsonBytes, err := json.Marshal(CustomerInitMessage{Event: "init_customer", Customers: s.Customers})
+	jsonBytes, err := json.Marshal(CustomerInitMessage{Event: "init_customers", Customers: s.Customers})
 	if err == nil {
 		message := fmt.Sprint(string(jsonBytes))
-		s.Broker.Publish("driver", message)
+		s.Broker.Publish("customer", message)
 	}
 }

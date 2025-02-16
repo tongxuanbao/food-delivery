@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"math/rand"
+	"sync"
 	"time"
 
 	"github.com/tongxuanbao/food-delivery/backend/internal/pkg/broker"
@@ -30,6 +31,11 @@ var restaurantsData []byte
 
 var RestaurantList []Restaurant
 
+type RestaurantInitMessage struct {
+	Event       string       `json:"event"`
+	Restaurants []Restaurant `json:"restaurants"`
+}
+
 func init() {
 	// Unmarshal the JSON into the connections variable
 	var listFromJson []Coordinate
@@ -51,12 +57,29 @@ func init() {
 }
 
 type Service struct {
-	Broker *broker.Broker
+	mutex       sync.Mutex
+	Broker      *broker.Broker
+	Restaurants []Restaurant
 }
 
 func New() *Service {
 	s := &Service{Broker: broker.New()}
 	return s
+}
+
+func (s *Service) SetRestaurants(numOfRestaurants int) {
+	s.mutex.Lock()
+	defer s.mutex.Unlock()
+
+	fmt.Printf("%s RESTAURANT SetRestaurants(%d) from %d \n", time.Now().Format("2006-01-02 15:04:05"), numOfRestaurants, len(s.Restaurants))
+
+	s.Restaurants = RestaurantList[:numOfRestaurants]
+
+	jsonBytes, err := json.Marshal(RestaurantInitMessage{Event: "init_restaurants", Restaurants: s.Restaurants})
+	if err == nil {
+		message := fmt.Sprint(string(jsonBytes))
+		s.Broker.Publish("restaurant", message)
+	}
 }
 
 func (s *Service) GetRestaurants() []Restaurant {
