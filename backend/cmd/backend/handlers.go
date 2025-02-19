@@ -34,9 +34,9 @@ func handleRoute(restaurantService *restaurant.Service, driverService *driver.Se
 		fmt.Printf("%s [%s] /route CONNECTED\n", time.Now().Format("2006-01-02 15:04:05"), connectionID)
 
 		// Send initial restaurant data
-		restaurantService.SetRestaurants(100)
+		restaurantService.SetRestaurants(1)
 		driverService.SetDrivers(1)
-		customerService.SetCustomers(100)
+		customerService.SetCustomers(1)
 		initialMessage := InitialMessage{
 			Restaurants: restaurantService.Restaurants,
 			Drivers:     driverService.Drivers,

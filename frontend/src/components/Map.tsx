@@ -59,6 +59,73 @@ function useWindowSize() {
   return windowSize;
 }
 
+const testest = [
+  {
+    x: 789.3277381991164,
+    y: 11.537644577026368,
+  },
+  {
+    x: 760.7962935176897,
+    y: 1.4319204495276936,
+  },
+  {
+    x: 675.8474672953289,
+    y: 184.73540463859655,
+  },
+  {
+    x: 675.4601626172479,
+    y: 202.61501483210813,
+  },
+  {
+    x: 746.724223516017,
+    y: 205.25808968720617,
+  },
+  {
+    x: 792.4261756237644,
+    y: 213.34279250627685,
+  },
+  {
+    x: 805.8527378223562,
+    y: 219.71727319411292,
+  },
+  {
+    x: 832.8349637820398,
+    y: 248.9466385076076,
+  },
+  {
+    x: 844.7123072683077,
+    y: 253.29995374326356,
+  },
+  {
+    x: 1192.64101041629,
+    y: 221.5829754440873,
+  },
+  {
+    x: 1201.807221146572,
+    y: 122.23469562765995,
+  },
+  {
+    x: 1171.5974561997405,
+    y: 116.17120966028286,
+  },
+  {
+    x: 1063.7976539235058,
+    y: -19.09044950037827,
+  },
+  {
+    x: 1039.9138653978891,
+    y: -23.59914772598832,
+  },
+  {
+    x: 1022.8724595246493,
+    y: 164.83464944156603,
+  },
+  {
+    x: 844.8414088308076,
+    y: 185.20182894483028,
+  },
+];
+
 const MapComponent = () => {
   const customerRef = useRef<HTMLImageElement | null>(null);
   const restaurantRef = useRef<HTMLImageElement | null>(null);
@@ -118,6 +185,14 @@ const MapComponent = () => {
         ICON_SIZE,
       );
     });
+
+    context.beginPath();
+    context.moveTo(testest[0].x * 3.125, testest[0].y * 3.125);
+    for (let i = 1; i < 16; i++) {
+      context.lineTo(testest[i].x * 3.125, testest[i].y * 3.125);
+    }
+    context.lineWidth = 10;
+    context.stroke();
   }
 
   useEffect(() => {
@@ -134,8 +209,6 @@ const MapComponent = () => {
       setRestaurants(r);
       setDrivers(data.drivers);
       setCustomers(data.customers);
-      console.log(data.restaurants.map((restaurant) => restaurant.coordinate));
-      // console.log(data.customers.map((restaurant) => restaurant.coordinate));
     });
 
     eventSource.addEventListener("restaurant", (event) => {

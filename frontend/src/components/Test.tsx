@@ -1,7 +1,8 @@
 import mapboxgl from "mapbox-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
 import { useEffect, useRef } from "react";
 
-import "mapbox-gl/dist/mapbox-gl.css";
+import data from "../../restaurantCustomerClean.json";
 
 const TestComponent = () => {
   const mapRef = useRef();
@@ -28,10 +29,18 @@ const TestComponent = () => {
   }, []);
 
   setTimeout(() => {
-    const pixels = restaurants.map((restaurant) =>
-      mapRef.current.unproject(restaurant),
-    );
-    console.log(pixels);
+    // const pixels = coords.map((restaurant) =>
+    //   mapRef.current.project(restaurant),
+    // );
+    const result = data.map((entry) => {
+      const route = entry.route.map((r) => mapRef.current.project(r));
+      return {
+        restaurantId: entry.restaurantId,
+        customerId: entry.customerId,
+        route,
+      };
+    });
+    console.log(result);
   }, 1000);
 
   return (
