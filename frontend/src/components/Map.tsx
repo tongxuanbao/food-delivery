@@ -239,6 +239,15 @@ const MapComponent = () => {
       if (d.event === "init_drivers") {
         setDrivers(d.drivers);
       }
+      if (d.event === "driver") {
+        setDrivers((drivers) => {
+          const targetDriverIndex = drivers.findIndex(
+            (driver) => driver.id === d.driver.id,
+          );
+          drivers[targetDriverIndex] = d.driver;
+          return drivers;
+        });
+      }
     });
 
     // terminating the connection on component unmount

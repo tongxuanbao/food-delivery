@@ -11,13 +11,24 @@ import (
 //go:embed adjacentListPixel.json
 var pixelData []byte
 
+//go:embed restaurantCustomerCleanPixel.json
+var routeData []byte
+
 type Coordinate struct {
 	X float64 `json:"x"`
 	Y float64 `json:"y"`
 }
 
+type Route struct {
+	RestaurantId int          `json:"restaurantId"`
+	CustomerId   int          `json:"customerId"`
+	Route        []Coordinate `json:"route"`
+}
+
 var adjacentList = make(map[Coordinate][]Coordinate)
 var coordinateList []Coordinate
+
+var RouteList []Route
 
 func (c Coordinate) GetNeighbors() []Coordinate {
 	return adjacentList[c]
@@ -51,6 +62,18 @@ func init() {
 		// Add connecting points to their list
 		adjacentList[pointA] = append(adjacentList[pointA], pointB)
 		adjacentList[pointB] = append(adjacentList[pointB], pointA)
+	}
+
+	// Unmarshal the JSON into the connections variable
+	err = json.Unmarshal(routeData, &RouteList)
+	if err != nil {
+		log.Fatal(err)
+	}
+	for i := range len(RouteList) {
+		for j := range len(RouteList[i].Route) {
+			RouteList[i].Route[j].X *= 3.125
+			RouteList[i].Route[j].Y *= 3.125
+		}
 	}
 }
 

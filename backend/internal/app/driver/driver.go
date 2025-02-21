@@ -40,6 +40,25 @@ type DriverInitMessage struct {
 	Drivers []Driver `json:"drivers"`
 }
 
+func newDriverInitMessage(drivers []Driver) DriverInitMessage {
+	return DriverInitMessage{
+		Event:   "init_drivers",
+		Drivers: drivers,
+	}
+}
+
+type DriverUpdateMessage struct {
+	Event  string `json:"event"`
+	Driver Driver `json:"driver"`
+}
+
+func newDriverUpdateMessage(driver Driver) DriverUpdateMessage {
+	return DriverUpdateMessage{
+		Event:  "driver",
+		Driver: driver,
+	}
+}
+
 func New() *Service {
 	s := &Service{Broker: broker.New()}
 	return s
@@ -61,13 +80,14 @@ func (s *Service) SetDrivers(numOfDrivers int) {
 		for range numOfDrivers - len(s.Drivers) {
 			randomDriver := s.generateRandomDriver()
 			randomDriver.ID = len(s.Drivers) + 1
+			randomDriver.Route = geo.RouteList[0].Route
 			s.Drivers = append(s.Drivers, randomDriver)
 		}
 	} else {
 		s.Drivers = s.Drivers[:numOfDrivers]
 	}
 
-	jsonBytes, err := json.Marshal(DriverInitMessage{Event: "init_drivers", Drivers: s.Drivers})
+	jsonBytes, err := json.Marshal(newDriverInitMessage(s.Drivers))
 	if err == nil {
 		message := fmt.Sprint(string(jsonBytes))
 		s.Broker.Publish("driver", message)
@@ -79,4 +99,24 @@ func (s *Service) GetDriver(customerID int, restaurantID int) {
 	// Schedule for driver to get to the restaurant (Current position -> restaurant)
 	// Schedule for driver to deliver the (Restaurant -> customer)
 	// Finished then go to random point and wait for next order
+}
+
+func (s *Service) Test() {
+	go s.testDriver()
+}
+
+func (s *Service) testDriver() {
+	driver := s.Drivers[0]
+	for i := range len(driver.Route) {
+		fmt.Println(i)
+		time.Sleep(2 * time.Second)
+		driver.CurrentPosition = i
+		driver.Coordinate = driver.Route[driver.CurrentPosition]
+
+		jsonBytes, err := json.Marshal(newDriverUpdateMessage(driver))
+		if err == nil {
+			message := fmt.Sprint(string(jsonBytes))
+			s.Broker.Publish("driver", message)
+		}
+	}
 }

@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import Test from "../components/Test";
+import Map from "../components/Map";
 
 export const Route = createFileRoute("/")({
   component: HomeComponent,
@@ -11,8 +11,8 @@ function HomeComponent() {
       <main className="lg:pl-20 h-screen">
         <div className="xl:pl-96 h-full">
           <div className="h-full flex px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
-            {/* <Map /> */}
-            <Test />
+            <Map />
+            {/* <Test /> */}
           </div>
         </div>
       </main>

@@ -43,6 +43,10 @@ func main() {
 	driverService := driver.New()
 	customerService := customer.New()
 
+	restaurantService.SetRestaurants(1)
+	driverService.SetDrivers(1)
+	customerService.SetCustomers(1)
+
 	serverHandler := NewServer(restaurantService, driverService, customerService)
 
 	server := &http.Server{
@@ -61,6 +65,8 @@ func main() {
 
 	simulatorService := simulator.New(restaurantService, driverService)
 	go simulatorService.Simulate()
+
+	driverService.Test()
 
 	// trap sigterm or interrupt and gracefully shutdown the server
 	c := make(chan os.Signal, 1)
