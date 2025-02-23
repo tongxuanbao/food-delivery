@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 type Coordinate = {
   x: number;
@@ -17,6 +17,7 @@ type Driver = {
   route: Array<Coordinate>;
   speed: number;
   status: number;
+  currentPosition: number;
 };
 
 type Customer = {
@@ -31,33 +32,6 @@ type InitialResponse = {
 };
 
 const ICON_SIZE = 130;
-
-// Hook
-function useWindowSize() {
-  // Initialize state with undefined width/height so server and client renders match
-  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
-  const [windowSize, setWindowSize] = useState({
-    width: undefined,
-    height: undefined,
-  });
-  useEffect(() => {
-    // Handler to call on window resize
-    function handleResize() {
-      // Set window width/height to state
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    }
-    // Add event listener
-    window.addEventListener("resize", handleResize);
-    // Call handler right away so state gets updated with initial window size
-    handleResize();
-    // Remove event listener on cleanup
-    return () => window.removeEventListener("resize", handleResize);
-  }, []); // Empty array ensures that effect is only run on mount
-  return windowSize;
-}
 
 const testest = [
   {
@@ -131,20 +105,70 @@ const MapComponent = () => {
   const restaurantRef = useRef<HTMLImageElement | null>(null);
   const carRef = useRef<HTMLImageElement | null>(null);
   const mapRef = useRef<HTMLImageElement | null>(null);
-  const redDotRef = useRef<HTMLImageElement | null>(null);
-  const greenDotRef = useRef<HTMLImageElement | null>(null);
 
   /* Data */
-  const restaurants = useRef<Restaurant[]>([]);
-  // const [restaurants, setRestaurants] = useState<Array<Restaurant>>([]);
-  const [drivers, setDrivers] = useState<Array<Driver>>([]);
-  const [customers, setCustomers] = useState<Array<Customer>>([]);
+  const restaurants = useRef<Map<number, Restaurant>>(new Map());
+  const drivers = useRef<Map<number, Driver>>(new Map());
+  const customers = useRef<Map<number, Customer>>(new Map());
 
   /* Canvas */
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const drawQueued = useRef<boolean>(false);
+  function drawMap(context: CanvasRenderingContext2D) {
+    if (!mapRef.current) return;
+    context.drawImage(mapRef.current, 0, 0);
+  }
+  function drawRestaurants(context: CanvasRenderingContext2D) {
+    restaurants.current.forEach((restaurant) => {
+      if (!restaurantRef.current) return;
+      context.drawImage(
+        restaurantRef.current,
+        restaurant.coordinate.x - Math.round(ICON_SIZE / 2),
+        restaurant.coordinate.y - ICON_SIZE,
+        ICON_SIZE,
+        ICON_SIZE,
+      );
+    });
+  }
+  function drawDrivers(context: CanvasRenderingContext2D) {
+    drivers.current.forEach((driver) => {
+      if (!carRef.current) return;
+
+      // Draw path of the driver
+      context.beginPath();
+      context.moveTo(driver.coordinate.x, driver.coordinate.y);
+      for (let i = driver.currentPosition + 1; i < driver.route.length; i++) {
+        const nextCoordinate = driver.route.at(i);
+        if (!nextCoordinate) continue;
+        context.lineTo(nextCoordinate.x, nextCoordinate.y);
+      }
+      context.lineWidth = 10;
+      context.stroke();
+
+      // TODO: calculate rotation based on the route driver is going
+      // Draw driver
+      context.drawImage(
+        carRef.current,
+        driver.coordinate.x - 50,
+        driver.coordinate.y - 50,
+        100,
+        100,
+      );
+    });
+  }
+  function drawCustomers(context: CanvasRenderingContext2D) {
+    customers.current.forEach((customer) => {
+      if (!customerRef.current) return;
+      context?.drawImage(
+        customerRef.current,
+        customer.coordinate.x - Math.round(ICON_SIZE / 2),
+        customer.coordinate.y - Math.round(ICON_SIZE / 2),
+        ICON_SIZE,
+        ICON_SIZE,
+      );
+    });
+  }
   function draw() {
-    console.log("draw", drivers.length, customers.length, restaurants.length);
     if (!canvasRef.current) return;
 
     const canvas = canvasRef.current;
@@ -157,45 +181,19 @@ const MapComponent = () => {
     context.canvas.height = height * zoomLevel;
     context.imageSmoothingEnabled = false;
 
-    if (mapRef.current) context?.drawImage(mapRef.current, 0, 0);
+    drawMap(context);
 
-    restaurants.current.forEach((restaurant) => {
-      context?.drawImage(
-        restaurantRef.current,
-        restaurant.coordinate.x - Math.round(ICON_SIZE / 2),
-        restaurant.coordinate.y - ICON_SIZE,
-        ICON_SIZE,
-        ICON_SIZE,
-      );
-    });
+    // context.beginPath();
+    // context.moveTo(testest[0].x * 3.125, testest[0].y * 3.125);
+    // for (let i = 1; i < 16; i++) {
+    //   context.lineTo(testest[i].x * 3.125, testest[i].y * 3.125);
+    // }
+    // context.lineWidth = 10;
+    // context.stroke();
 
-    drivers.forEach((driver) => {
-      context?.drawImage(
-        carRef.current,
-        driver.coordinate.x - 50,
-        driver.coordinate.y - 50,
-        100,
-        100,
-      );
-    });
-
-    customers.forEach((customer) => {
-      context?.drawImage(
-        customerRef.current,
-        customer.coordinate.x - Math.round(ICON_SIZE / 2),
-        customer.coordinate.y - Math.round(ICON_SIZE / 2),
-        ICON_SIZE,
-        ICON_SIZE,
-      );
-    });
-
-    context.beginPath();
-    context.moveTo(testest[0].x * 3.125, testest[0].y * 3.125);
-    for (let i = 1; i < 16; i++) {
-      context.lineTo(testest[i].x * 3.125, testest[i].y * 3.125);
-    }
-    context.lineWidth = 10;
-    context.stroke();
+    drawDrivers(context);
+    drawRestaurants(context);
+    drawCustomers(context);
 
     drawQueued.current = false;
   }
@@ -206,17 +204,20 @@ const MapComponent = () => {
 
     eventSource.addEventListener("initial", (event) => {
       const data = JSON.parse(event.data) as InitialResponse;
-      console.log("initial", data);
-      restaurants.current = data.restaurants;
-      setDrivers(data.drivers);
-      setCustomers(data.customers);
+      restaurants.current = new Map(
+        data.restaurants.map((restaurant) => [restaurant.id, restaurant]),
+      );
+      drivers.current = new Map(
+        data.drivers.map((driver) => [driver.id, driver]),
+      );
+      customers.current = new Map(
+        data.customers.map((customer) => [customer.id, customer]),
+      );
     });
 
     eventSource.addEventListener("restaurant", (event) => {
       const d = JSON.parse(event.data);
-      // console.log("restaurant", d);
       if (d.event === "init_restaurants") {
-        // setRestaurants(d.restaurants);
         restaurantRef.current = d.restaurants;
       }
     });
@@ -224,17 +225,15 @@ const MapComponent = () => {
     eventSource.addEventListener("driver", (event) => {
       const d = JSON.parse(event.data);
       if (d.event === "init_drivers") {
-        setDrivers(d.drivers);
+        // setDrivers(d.drivers);
+        drivers.current = new Map(
+          d.drivers.map((driver) => [driver.id, driver]),
+        );
       }
       if (d.event === "driver") {
-        console.log("driver", d);
-        setDrivers((drivers) => {
-          const targetDriverIndex = drivers.findIndex(
-            (driver) => driver.id === d.driver.id,
-          );
-          drivers[targetDriverIndex] = d.driver;
-          return drivers;
-        });
+        console.log("set", d.driver.id, d.driver);
+        drivers.current.set(d.driver.id, d.driver);
+        console.log(drivers.current);
       }
     });
 
@@ -248,54 +247,31 @@ const MapComponent = () => {
     return start + (end - start) * t;
   }
   function calculateDriverPosition() {
-    setDrivers((drivers) => {
-      drivers.map((driver) => {
-        const driverCoordinate = driver.coordinate;
-        const targetCoordinate = driver.route.at(0) ?? driverCoordinate;
-
-        driver.coordinate = {
-          x: lerp(driverCoordinate.x, targetCoordinate.x, 0.1),
-          y: lerp(driverCoordinate.y, targetCoordinate.y, 0.1),
-        };
-      });
-
-      return drivers;
+    drivers.current.forEach((driver) => {
+      const driverCoordinate = driver.coordinate;
+      const targetCoordinate =
+        driver.route.at(driver.currentPosition + 1) ?? driverCoordinate;
+      driver.coordinate = {
+        x: lerp(driverCoordinate.x, targetCoordinate.x, 0.01),
+        y: lerp(driverCoordinate.y, targetCoordinate.y, 0.01),
+      };
     });
   }
 
-  // const refDraw = () => {
-  //   calculateDriverPosition();
-  //   draw();
-  //   requestAnimationFrame(refDraw);
-  // };
-
-  // useEffect(() => {
-  //   refDraw();
-  // }, []);
-
   useEffect(() => {
-    if (!drawQueued.current) {
-      drawQueued.current = true;
-      requestAnimationFrame(draw);
-    }
-    return;
-  }, [restaurants.current, drivers, customers]);
-
-  useEffect(() => {
-    // Handler to call on window resize
-    const handler = () => {
-      if (!drawQueued.current) {
-        drawQueued.current = true;
-        requestAnimationFrame(draw);
-      }
+    let raf: number;
+    const start = () => {
+      draw();
+      calculateDriverPosition();
+      raf = requestAnimationFrame(start);
     };
-    // Add event listener
-    window.addEventListener("resize", handler);
-    // Call handler right away so state gets updated with initial window size
-    handler();
-    // Remove event listener on cleanup
-    return () => window.removeEventListener("resize", handler);
-  }, []); // Empty array ensures that effect is only run on mount
+
+    start();
+
+    return () => {
+      cancelAnimationFrame(raf);
+    };
+  }, []);
 
   return (
     <div className="flex-grow relative overflow-hidden rounded-xl border border-dashed border-gray-400">

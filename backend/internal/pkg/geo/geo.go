@@ -81,6 +81,7 @@ func GetAdjacentList() map[Coordinate][]Coordinate {
 	return adjacentList
 }
 
+// TODO: remove this random coordinate so that it need to
 func GetRandomCoordinate() Coordinate {
 	return coordinateList[rand.Intn(len(coordinateList))]
 }
