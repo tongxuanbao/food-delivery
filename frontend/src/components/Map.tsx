@@ -1,26 +1,26 @@
 import { useEffect, useRef, useState } from "react";
 
 type Coordinate = {
-  x: Number;
-  y: Number;
+  x: number;
+  y: number;
 };
 
 type Restaurant = {
-  id: Number;
+  id: number;
   status: String;
   coordinate: Coordinate;
 };
 
 type Driver = {
-  id: Number;
+  id: number;
   coordinate: Coordinate;
   route: Array<Coordinate>;
-  speed: Number;
-  status: Number;
+  speed: number;
+  status: number;
 };
 
 type Customer = {
-  id: Number;
+  id: number;
   coordinate: Coordinate;
 };
 
@@ -135,13 +135,16 @@ const MapComponent = () => {
   const greenDotRef = useRef<HTMLImageElement | null>(null);
 
   /* Data */
-  const [restaurants, setRestaurants] = useState<Array<Restaurant>>([]);
+  const restaurants = useRef<Restaurant[]>([]);
+  // const [restaurants, setRestaurants] = useState<Array<Restaurant>>([]);
   const [drivers, setDrivers] = useState<Array<Driver>>([]);
   const [customers, setCustomers] = useState<Array<Customer>>([]);
 
   /* Canvas */
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const drawQueued = useRef<boolean>(false);
   function draw() {
+    console.log("draw", drivers.length, customers.length, restaurants.length);
     if (!canvasRef.current) return;
 
     const canvas = canvasRef.current;
@@ -156,7 +159,7 @@ const MapComponent = () => {
 
     if (mapRef.current) context?.drawImage(mapRef.current, 0, 0);
 
-    restaurants.forEach((restaurant) => {
+    restaurants.current.forEach((restaurant) => {
       context?.drawImage(
         restaurantRef.current,
         restaurant.coordinate.x - Math.round(ICON_SIZE / 2),
@@ -193,6 +196,8 @@ const MapComponent = () => {
     }
     context.lineWidth = 10;
     context.stroke();
+
+    drawQueued.current = false;
   }
 
   useEffect(() => {
@@ -202,44 +207,27 @@ const MapComponent = () => {
     eventSource.addEventListener("initial", (event) => {
       const data = JSON.parse(event.data) as InitialResponse;
       console.log("initial", data);
-      const r = data.restaurants.map((restaurant) => ({
-        ...restaurant,
-        status: "red",
-      }));
-      setRestaurants(r);
+      restaurants.current = data.restaurants;
       setDrivers(data.drivers);
       setCustomers(data.customers);
     });
 
     eventSource.addEventListener("restaurant", (event) => {
       const d = JSON.parse(event.data);
-      console.log("restaurant", d);
+      // console.log("restaurant", d);
       if (d.event === "init_restaurants") {
-        setRestaurants(d.restaurants);
-      } else {
-        setRestaurants((restaurants) => {
-          const restaurant = d.restaurant;
-          return restaurants.map((r) => {
-            if (r.id === restaurant.id) {
-              return {
-                ...r,
-                status: d.event === "order_prepared" ? "green" : "red",
-              };
-            } else {
-              return r;
-            }
-          });
-        });
+        // setRestaurants(d.restaurants);
+        restaurantRef.current = d.restaurants;
       }
     });
 
     eventSource.addEventListener("driver", (event) => {
       const d = JSON.parse(event.data);
-      console.log("driver", d);
       if (d.event === "init_drivers") {
         setDrivers(d.drivers);
       }
       if (d.event === "driver") {
+        console.log("driver", d);
         setDrivers((drivers) => {
           const targetDriverIndex = drivers.findIndex(
             (driver) => driver.id === d.driver.id,
@@ -256,14 +244,51 @@ const MapComponent = () => {
     };
   }, []);
 
+  function lerp(start: number, end: number, t: number): number {
+    return start + (end - start) * t;
+  }
+  function calculateDriverPosition() {
+    setDrivers((drivers) => {
+      drivers.map((driver) => {
+        const driverCoordinate = driver.coordinate;
+        const targetCoordinate = driver.route.at(0) ?? driverCoordinate;
+
+        driver.coordinate = {
+          x: lerp(driverCoordinate.x, targetCoordinate.x, 0.1),
+          y: lerp(driverCoordinate.y, targetCoordinate.y, 0.1),
+        };
+      });
+
+      return drivers;
+    });
+  }
+
+  // const refDraw = () => {
+  //   calculateDriverPosition();
+  //   draw();
+  //   requestAnimationFrame(refDraw);
+  // };
+
+  // useEffect(() => {
+  //   refDraw();
+  // }, []);
+
   useEffect(() => {
-    requestAnimationFrame(draw);
+    if (!drawQueued.current) {
+      drawQueued.current = true;
+      requestAnimationFrame(draw);
+    }
     return;
-  }, [restaurants, drivers, customers]);
+  }, [restaurants.current, drivers, customers]);
 
   useEffect(() => {
     // Handler to call on window resize
-    const handler = () => requestAnimationFrame(draw);
+    const handler = () => {
+      if (!drawQueued.current) {
+        drawQueued.current = true;
+        requestAnimationFrame(draw);
+      }
+    };
     // Add event listener
     window.addEventListener("resize", handler);
     // Call handler right away so state gets updated with initial window size
