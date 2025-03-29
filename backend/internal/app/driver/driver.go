@@ -126,7 +126,7 @@ func (s *Service) getClosestAvailableDriver(location Coordinate) *Driver {
 // Route is sorted by index, cusId + resID*100
 func (s *Service) FindDriver(restaurantID int, customerID int) *Driver {
 	assert.Assert(restaurantID >= 0 && restaurantID < 100, "Invalid restaurant ID: must be between 0 and 99")
-	assert.Assert(customerID >= 0 && customerID < 100, "Invalid customer ID: must be between 0 and 99"))
+	assert.Assert(customerID >= 0 && customerID < 100, "Invalid customer ID: must be between 0 and 99")
 
 	// Get main route
 	routeIndex := customerID + restaurantID*100

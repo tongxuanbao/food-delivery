@@ -2,7 +2,6 @@ package simulator
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/tongxuanbao/food-delivery/backend/internal/app/driver"
 	"github.com/tongxuanbao/food-delivery/backend/internal/app/restaurant"
@@ -21,14 +20,15 @@ func New(restaurantService *restaurant.Service, driverService *driver.Service) *
 }
 
 func (s *Service) Simulate() {
-	t := time.NewTicker(3 * time.Second)
-	defer func() {
-		fmt.Println("Simulate deferring")
-		t.Stop()
-	}()
+	// t := time.NewTicker(3 * time.Second)
+	// defer func() {
+	// 	fmt.Println("Simulate deferring")
+	// 	t.Stop()
+	// }()
 
-	for {
-		<-t.C
+	list := len(s.restaurantService.GetRestaurants())
+
+	for range list {
 		s.addOrder()
 	}
 }
@@ -37,6 +37,7 @@ func (s *Service) Simulate() {
 // Setting up route for driver
 // Free restaurant, driver and customer
 func (s *Service) addOrder() {
+	fmt.Println("Add new order")
 	// Get Random Restaurant
 	restaurantID := 1
 	// Get Random Customer
@@ -44,6 +45,5 @@ func (s *Service) addOrder() {
 
 	// Get A driver
 	driver := s.driverService.FindDriver(restaurantID, customerID)
-	driver.Status = 1
 	s.driverService.DriverTraverseToTheEnd(driver)
 }

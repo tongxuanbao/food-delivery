@@ -83,12 +83,8 @@ func (s *Service) SetRestaurants(numOfRestaurants int) {
 	}
 }
 
-func (s *Service) GetRestaurants() []Restaurant {
-	return RestaurantList
-}
-
 func (s *Service) getRestaurant(id int) Restaurant {
-	return s.GetRestaurants()[id]
+	return RestaurantList[id]
 }
 
 func (s *Service) constructEventMessage(eventName string, restaurantID int) string {
