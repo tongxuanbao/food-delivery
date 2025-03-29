@@ -3,10 +3,13 @@ package driver
 import (
 	"encoding/json"
 	"fmt"
+	"math"
 	"math/rand"
+	"slices"
 	"sync"
 	"time"
 
+	"github.com/tongxuanbao/food-delivery/backend/internal/pkg/assert"
 	"github.com/tongxuanbao/food-delivery/backend/internal/pkg/broker"
 	"github.com/tongxuanbao/food-delivery/backend/internal/pkg/geo"
 )
@@ -24,6 +27,7 @@ type Driver struct {
 	ID              int          `json:"id"`
 	Coordinate      Coordinate   `json:"coordinate"`
 	Route           []Coordinate `json:"route"`
+	RouteIndex      int          `json:"routeIndex"`
 	CurrentPosition int          `json:"currentPosition"`
 	Speed           int          `json:"speed"`
 	Status          int          `json:"status"`
@@ -52,10 +56,10 @@ type DriverUpdateMessage struct {
 	Driver Driver `json:"driver"`
 }
 
-func newDriverUpdateMessage(driver Driver) DriverUpdateMessage {
+func newDriverUpdateMessage(driver *Driver) DriverUpdateMessage {
 	return DriverUpdateMessage{
 		Event:  "driver",
-		Driver: driver,
+		Driver: *driver,
 	}
 }
 
@@ -77,10 +81,12 @@ func (s *Service) SetDrivers(numOfDrivers int) {
 	fmt.Printf("%s DRIVER SetDrivers(%d) from %d \n", time.Now().Format("2006-01-02 15:04:05"), numOfDrivers, len(s.Drivers))
 
 	if numOfDrivers > len(s.Drivers) {
-		for range numOfDrivers - len(s.Drivers) {
+		for i := range numOfDrivers - len(s.Drivers) {
 			randomDriver := s.generateRandomDriver()
 			randomDriver.ID = len(s.Drivers) + 1
-			randomDriver.Route = geo.RouteList[0].Route
+			randomDriver.Route = geo.GetRouteByIndex(i*100 + i).Route
+			slices.Reverse(randomDriver.Route)
+			fmt.Printf("restaurant: %d, customer: %d\n", geo.GetRouteByIndex(i*100+i).RestaurantID, geo.GetRouteByIndex(i*100+i).CustomerID)
 			s.Drivers = append(s.Drivers, randomDriver)
 		}
 	} else {
@@ -94,22 +100,52 @@ func (s *Service) SetDrivers(numOfDrivers int) {
 	}
 }
 
-func (s *Service) GetDriver(customerID int, restaurantID int) {
-	// Get what driver should deliver (might be closest available)
-	// Schedule for driver to get to the restaurant (Current position -> restaurant)
-	// Schedule for driver to deliver the (Restaurant -> customer)
-	// Finished then go to random point and wait for next order
+func (s *Service) getClosestAvailableDriver(location Coordinate) *Driver {
+	var currentDriver *Driver
+	for _, driver := range s.Drivers {
+		// Not available
+		if driver.Status != DRIVER_STATUS_WAITING {
+			continue
+		}
+
+		// First available driver
+		if currentDriver == nil {
+			currentDriver = &driver
+		}
+
+		// Closer available driver
+		distanceToCurrent := location.DistanceTo(currentDriver.Coordinate)
+		distanceToDriver := location.DistanceTo(driver.Coordinate)
+		if distanceToCurrent > distanceToDriver {
+			currentDriver = &driver
+		}
+	}
+	return currentDriver
 }
 
-func (s *Service) Test() {
-	go s.testDriver()
+// Route is sorted by index, cusId + resID*100
+func (s *Service) FindDriver(restaurantID int, customerID int) *Driver {
+	assert.Assert(restaurantID >= 0 && restaurantID < 100, "Invalid restaurant ID: must be between 0 and 99")
+	assert.Assert(customerID >= 0 && customerID < 100, "Invalid customer ID: must be between 0 and 99"))
+
+	// Get main route
+	routeIndex := customerID + restaurantID*100
+	mainRoute := geo.GetRouteByIndex(routeIndex)
+	assert.Assert(
+		mainRoute.RestaurantID == restaurantID && mainRoute.CustomerID == customerID,
+		"Mismatch: Retrieved route does not correspond to the provided restaurant and customer IDs",
+	)
+
+	// Get the closest available driver
+	driver := s.getClosestAvailableDriver(mainRoute.Route[0])
+	// There's should be enough available Driver
+	assert.Assert(driver != nil, "No available driver found")
+	return driver
 }
 
-func (s *Service) testDriver() {
-	driver := s.Drivers[0]
-	for i := range len(driver.Route) {
-		fmt.Println(i)
-		time.Sleep(2 * time.Second)
+// Get driver to traverse to the end of the route, updating event in the meanwhile
+func (s *Service) DriverTraverseToTheEnd(driver *Driver) {
+	for i := range len(driver.Route) - 1 {
 		driver.CurrentPosition = i
 		driver.Coordinate = driver.Route[driver.CurrentPosition]
 
@@ -118,5 +154,39 @@ func (s *Service) testDriver() {
 			message := fmt.Sprint(string(jsonBytes))
 			s.Broker.Publish("driver", message)
 		}
+
+		cl := clamp(driver.CurrentPosition+1, 0, len(driver.Route))
+		distance := driver.Coordinate.DistanceTo(driver.Route[cl])
+
+		time.Sleep(time.Duration(math.Sqrt(distance)) * time.Millisecond * 10)
 	}
 }
+
+func clamp(value int, min int, max int) int {
+	if value < min {
+		return min
+	}
+	if value > max {
+		return max
+	}
+	return value
+}
+
+// func (s *Service) testDriver(index int) {
+// 	driver := s.Drivers[index]
+// 	for i := range len(driver.Route) - 1 {
+// 		driver.CurrentPosition = i
+// 		driver.Coordinate = driver.Route[driver.CurrentPosition]
+
+// 		jsonBytes, err := json.Marshal(newDriverUpdateMessage(driver))
+// 		if err == nil {
+// 			message := fmt.Sprint(string(jsonBytes))
+// 			s.Broker.Publish("driver", message)
+// 		}
+
+// 		cl := clamp(driver.CurrentPosition+1, 0, len(driver.Route))
+// 		distance := driver.Coordinate.DistanceTo(driver.Route[cl])
+
+// 		time.Sleep(time.Duration(math.Sqrt(distance)) * time.Millisecond * 10)
+// 	}
+// }

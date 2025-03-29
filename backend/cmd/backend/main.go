@@ -16,7 +16,7 @@ import (
 )
 
 type RateResponse struct {
-	Id       int              `json:"id"`
+	ID       int              `json:"id"`
 	Route    []geo.Coordinate `json:"route"`
 	Position geo.Coordinate   `json:"position"`
 }
@@ -65,8 +65,6 @@ func main() {
 
 	simulatorService := simulator.New(restaurantService, driverService)
 	go simulatorService.Simulate()
-
-	driverService.Test()
 
 	// trap sigterm or interrupt and gracefully shutdown the server
 	c := make(chan os.Signal, 1)

@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"time"
 
-	"math/rand"
-
 	"github.com/tongxuanbao/food-delivery/backend/internal/app/driver"
 	"github.com/tongxuanbao/food-delivery/backend/internal/app/restaurant"
 )
@@ -23,10 +21,9 @@ func New(restaurantService *restaurant.Service, driverService *driver.Service) *
 }
 
 func (s *Service) Simulate() {
-
 	t := time.NewTicker(3 * time.Second)
 	defer func() {
-		fmt.Println("Simulate defering")
+		fmt.Println("Simulate deferring")
 		t.Stop()
 	}()
 
@@ -36,12 +33,17 @@ func (s *Service) Simulate() {
 	}
 }
 
+// Get random restaurant, driver and customer
+// Setting up route for driver
+// Free restaurant, driver and customer
 func (s *Service) addOrder() {
-	// Get random restaurant
-	restaurants := s.restaurantService.GetRestaurants()
-	randomRestaurantID := rand.Intn(len(restaurants))
+	// Get Random Restaurant
+	restaurantID := 1
+	// Get Random Customer
+	customerID := 1
 
-	// // TODO: when adding user service
-	randomUserID := 1
-	s.restaurantService.AddOrder(randomUserID, randomRestaurantID)
+	// Get A driver
+	driver := s.driverService.FindDriver(restaurantID, customerID)
+	driver.Status = 1
+	s.driverService.DriverTraverseToTheEnd(driver)
 }

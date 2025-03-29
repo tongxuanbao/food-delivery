@@ -17,8 +17,9 @@ import (
 type Coordinate = geo.Coordinate
 
 type Restaurant struct {
-	Id         int        `json:"id"`
+	ID         int        `json:"id"`
 	Coordinate Coordinate `json:"coordinate"`
+	Status     int        `json:"status"`
 }
 
 type Event struct {
@@ -52,7 +53,7 @@ func init() {
 			continue
 		}
 		coordinate := Coordinate{X: restaurant.X * 3.125, Y: restaurant.Y * 3.125}
-		RestaurantList = append(RestaurantList, Restaurant{Id: idx, Coordinate: coordinate})
+		RestaurantList = append(RestaurantList, Restaurant{ID: idx, Coordinate: coordinate})
 	}
 }
 

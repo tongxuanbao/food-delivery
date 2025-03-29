@@ -19,7 +19,7 @@ type Coordinate = geo.Coordinate
 var customersData []byte
 
 type Customer struct {
-	Id         int        `json:"id"`
+	ID         int        `json:"id"`
 	Coordinate Coordinate `json:"coordinate"`
 }
 
@@ -45,7 +45,7 @@ func init() {
 			continue
 		}
 		coordinate := Coordinate{X: customer.X * 3.125, Y: customer.Y * 3.125}
-		CustomerList = append(CustomerList, Customer{Id: idx, Coordinate: coordinate})
+		CustomerList = append(CustomerList, Customer{ID: idx, Coordinate: coordinate})
 	}
 }
 
